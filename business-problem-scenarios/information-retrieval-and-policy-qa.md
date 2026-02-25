@@ -1,4 +1,4 @@
-# Information Retrieval & Policy Q&A
+# Information Retrieval Q&A
 
 > Scenarios for agents that answer user questions by retrieving information from authoritative knowledge sources — SharePoint, uploaded documents, FAQ databases, or other configured data sources.
 
@@ -6,7 +6,7 @@
 
 ---
 
-## Scenario 1: Verifying Policy Answer Accuracy
+## Scenario 1: Verifying Answer Accuracy
 
 ### When to Use
 
