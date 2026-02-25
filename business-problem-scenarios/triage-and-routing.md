@@ -61,13 +61,13 @@ Test inputs that sit on the boundary between two categories. For example, "My VP
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | IT ticket: clear hardware issue | "My laptop screen is flickering and has a crack in the corner." | Response includes "Hardware" | Keyword Match (All) |
-| 2 | IT ticket: clear software issue | "Excel keeps crashing every time I open a file larger than 10 MB." | Response includes "Software" | Keyword Match (All) |
-| 3 | Customer complaint: billing category | "I was charged twice for my February subscription." | Classification meaning aligns with: "This is a billing issue involving a duplicate charge that should be routed to the billing team." | Compare Meaning |
-| 4 | Customer complaint: shipping category | "My package was supposed to arrive three days ago and tracking shows no updates." | Response includes "Shipping" | Keyword Match (All) |
-| 5 | HR request: benefits vs. payroll | "I need to change my direct deposit information." | Response includes "Payroll" | Keyword Match (All) |
-| 6 | IT ticket: informal language | "Hey, something weird is happening — I can't get into any of my accounts since this morning." | Response includes "Access" | Keyword Match (All) |
-| 7 | Multi-issue input | "My laptop is overheating and I also need a software license for Adobe." | Response acknowledges both a hardware concern and a software/licensing request | General Quality |
+| 1 | IT ticket: clear hardware issue | "My laptop screen is flickering and has a crack in the corner." | Response includes "Hardware" | Keyword Match (All) + Compare Meaning |
+| 2 | IT ticket: clear software issue | "Excel keeps crashing every time I open a file larger than 10 MB." | Response includes "Software" | Keyword Match (All) + Compare Meaning |
+| 3 | Customer complaint: billing category | "I was charged twice for my February subscription." | Classification meaning aligns with: "This is a billing issue involving a duplicate charge that should be routed to the billing team." | Compare Meaning + Keyword Match (All) |
+| 4 | Customer complaint: shipping category | "My package was supposed to arrive three days ago and tracking shows no updates." | Response includes "Shipping" | Keyword Match (All) + Compare Meaning |
+| 5 | HR request: benefits vs. payroll | "I need to change my direct deposit information." | Response includes "Payroll" | Keyword Match (All) + Compare Meaning |
+| 6 | IT ticket: informal language | "Hey, something weird is happening — I can't get into any of my accounts since this morning." | Response includes "Access" | Keyword Match (All) + Compare Meaning |
+| 7 | Multi-issue input | "My laptop is overheating and I also need a software license for Adobe." | Response acknowledges both a hardware concern and a software/licensing request | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -135,12 +135,12 @@ Verify that the correct handoff mechanism fires — the right transfer topic, th
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | IT support: error code preserved | "I keep getting error code 0x800F0922 when trying to update Windows." | Handoff summary includes "0x800F0922" and "Windows update" | Keyword Match (All) |
-| 2 | Customer complaint: order details preserved | "Order #98421 arrived damaged — the box was crushed and two items inside were broken." | Handoff summary meaning aligns with: "Customer reports order #98421 arrived with physical damage to packaging and two broken items." | Compare Meaning |
-| 3 | HR request: employee details preserved | "I'm in the Seattle office, Engineering department, and I need to update my emergency contact." | Handoff summary includes "Seattle," "Engineering," and "emergency contact" | Keyword Match (All) |
-| 4 | Multi-turn: early details survive | Turn 1: "I need help with my benefits." Turn 2 (agent asks which benefit): "My dental coverage — I had a claim denied last week." Turn 3 (agent routes): handoff fires. | Handoff summary includes "dental" and "claim denied" | Keyword Match (All) |
-| 5 | Correct handoff action fires | "I need to speak with someone about a workplace safety concern." | Agent invokes the HR escalation transfer topic | Capability Use (All) |
-| 6 | Summary accuracy check | "I was told my refund would arrive in 5 business days but it's been two weeks and nothing has posted to my account." | Handoff meaning aligns with: "Customer is following up on a delayed refund that was promised within 5 business days but has not arrived after two weeks." | Compare Meaning |
+| 1 | IT support: error code preserved | "I keep getting error code 0x800F0922 when trying to update Windows." | Handoff summary includes "0x800F0922" and "Windows update" | Keyword Match (All) + Compare Meaning |
+| 2 | Customer complaint: order details preserved | "Order #98421 arrived damaged — the box was crushed and two items inside were broken." | Handoff summary meaning aligns with: "Customer reports order #98421 arrived with physical damage to packaging and two broken items." | Compare Meaning + Keyword Match (All) |
+| 3 | HR request: employee details preserved | "I'm in the Seattle office, Engineering department, and I need to update my emergency contact." | Handoff summary includes "Seattle," "Engineering," and "emergency contact" | Keyword Match (All) + Compare Meaning |
+| 4 | Multi-turn: early details survive | Turn 1: "I need help with my benefits." Turn 2 (agent asks which benefit): "My dental coverage — I had a claim denied last week." Turn 3 (agent routes): handoff fires. | Handoff summary includes "dental" and "claim denied" | Keyword Match (All) + Compare Meaning |
+| 5 | Correct handoff action fires | "I need to speak with someone about a workplace safety concern." | Agent invokes the HR escalation transfer topic | Capability Use (All) + Keyword Match (Any) |
+| 6 | Summary accuracy check | "I was told my refund would arrive in 5 business days but it's been two weeks and nothing has posted to my account." | Handoff meaning aligns with: "Customer is following up on a delayed refund that was promised within 5 business days but has not arrived after two weeks." | Compare Meaning + Keyword Match (All) |
 
 ### Tips
 
@@ -207,13 +207,13 @@ When the user does not provide enough information to assess priority, the agent 
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | IT support: system-wide outage | "The entire CRM system is down and no one on the sales team can access customer records." | Response includes "Critical" or "P1" | Keyword Match (All) |
-| 2 | IT support: single-user inconvenience | "My default printer keeps switching back to the one on the third floor." | Response includes "Low" or "P4" | Keyword Match (All) |
-| 3 | Customer complaint: calm tone, high impact | "I wanted to let you know that I've noticed unauthorized transactions on my account." | Priority meaning aligns with: "This is a high-priority security issue involving potential unauthorized access to the customer's account, despite the user's calm tone." | Compare Meaning |
-| 4 | Customer complaint: urgent tone, low impact | "I am VERY upset — the colors on your website look different on my phone than on my laptop!!" | Response includes "Low" or "P3" or "P4" | Keyword Match (Any) |
-| 5 | HR request: safety escalation trigger | "I witnessed a coworker slip and fall in the warehouse and they're having trouble standing up." | Response includes "Critical" or "P1" or "Urgent" | Keyword Match (Any) |
-| 6 | IT support: incomplete information | "Something is wrong with the system." | Agent asks a clarifying question to assess urgency, or assigns a default priority and notes incomplete information | General Quality |
-| 7 | HR request: standard process | "I'd like to request a name change on my employee badge and email address." | Response includes "Medium" or "Low" or "P3" or "P4" | Keyword Match (Any) |
+| 1 | IT support: system-wide outage | "The entire CRM system is down and no one on the sales team can access customer records." | Response includes "Critical" or "P1" | Keyword Match (All) + Compare Meaning |
+| 2 | IT support: single-user inconvenience | "My default printer keeps switching back to the one on the third floor." | Response includes "Low" or "P4" | Keyword Match (All) + Compare Meaning |
+| 3 | Customer complaint: calm tone, high impact | "I wanted to let you know that I've noticed unauthorized transactions on my account." | Priority meaning aligns with: "This is a high-priority security issue involving potential unauthorized access to the customer's account, despite the user's calm tone." | Compare Meaning + Keyword Match (Any) |
+| 4 | Customer complaint: urgent tone, low impact | "I am VERY upset — the colors on your website look different on my phone than on my laptop!!" | Response includes "Low" or "P3" or "P4" | Keyword Match (Any) + Compare Meaning |
+| 5 | HR request: safety escalation trigger | "I witnessed a coworker slip and fall in the warehouse and they're having trouble standing up." | Response includes "Critical" or "P1" or "Urgent" | Keyword Match (Any) + Compare Meaning |
+| 6 | IT support: incomplete information | "Something is wrong with the system." | Agent asks a clarifying question to assess urgency, or assigns a default priority and notes incomplete information | General Quality + Compare Meaning |
+| 7 | HR request: standard process | "I'd like to request a name change on my employee badge and email address." | Response includes "Medium" or "Low" or "P3" or "P4" | Keyword Match (Any) + Compare Meaning |
 
 ### Tips
 
@@ -282,13 +282,13 @@ Sometimes users respond to clarifying questions with "I don't know" or "Just hel
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Ambiguous IT request | "My system isn't working right." | Agent asks a clarifying question that distinguishes between hardware, software, network, or access issues | Compare Meaning |
-| 2 | Boundary: billing vs. shipping | "There's a problem with my order." | Agent asks whether the issue is about the charge/payment or about the delivery/shipment | Compare Meaning |
-| 3 | Minimal information HR request | "I have a question about my benefits." | Agent asks which type of benefit (health, dental, vision, retirement) or what specifically the user needs help with | General Quality |
-| 4 | Clear-cut input — no question needed | "I need to reset my password for the Salesforce application." | Response includes "Access" or "Password Reset" — agent classifies directly without unnecessary clarification | Keyword Match (Any) |
-| 5 | Uncooperative response to clarification | Turn 1: "I need help." Turn 2 (agent asks clarifying question): "I don't know, just help me." | Agent routes to a general support queue or escalates to a human rather than looping | General Quality |
-| 6 | Multi-issue ambiguity | "I'm having problems with my computer and also need to ask about my timesheet." | Agent acknowledges both issues and asks which the user would like to address first, or addresses the more urgent one | General Quality |
-| 7 | Progressive clarification | Turn 1: "Something is wrong with the network." Turn 2 (agent asks if it is VPN, Wi-Fi, or internal): "The internet one." | Agent narrows to Wi-Fi or external connectivity and either classifies or asks one more targeted question | Compare Meaning |
+| 1 | Ambiguous IT request | "My system isn't working right." | Agent asks a clarifying question that distinguishes between hardware, software, network, or access issues | Compare Meaning + Keyword Match (Any) |
+| 2 | Boundary: billing vs. shipping | "There's a problem with my order." | Agent asks whether the issue is about the charge/payment or about the delivery/shipment | Compare Meaning + Keyword Match (Any) |
+| 3 | Minimal information HR request | "I have a question about my benefits." | Agent asks which type of benefit (health, dental, vision, retirement) or what specifically the user needs help with | General Quality + Compare Meaning |
+| 4 | Clear-cut input — no question needed | "I need to reset my password for the Salesforce application." | Response includes "Access" or "Password Reset" — agent classifies directly without unnecessary clarification | Keyword Match (Any) + Compare Meaning |
+| 5 | Uncooperative response to clarification | Turn 1: "I need help." Turn 2 (agent asks clarifying question): "I don't know, just help me." | Agent routes to a general support queue or escalates to a human rather than looping | General Quality + Compare Meaning |
+| 6 | Multi-issue ambiguity | "I'm having problems with my computer and also need to ask about my timesheet." | Agent acknowledges both issues and asks which the user would like to address first, or addresses the more urgent one | General Quality + Compare Meaning |
+| 7 | Progressive clarification | Turn 1: "Something is wrong with the network." Turn 2 (agent asks if it is VPN, Wi-Fi, or internal): "The internet one." | Agent narrows to Wi-Fi or external connectivity and either classifies or asks one more targeted question | Compare Meaning + Keyword Match (Any) |
 
 ### Tips
 
@@ -359,13 +359,13 @@ After the agent routes, verify it does not trigger a secondary, unintended routi
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Misleading keyword: billing mentioned in shipping issue | "I have a billing question — why does my receipt show a shipping charge when I selected free shipping?" | Response routes to "Shipping" or "Order Fulfillment" — NOT "Billing" | Keyword Match (All) |
-| 2 | Misleading keyword: software mentioned in hardware issue | "The software update fried my laptop and now it won't turn on at all." | Response routes to "Hardware" — NOT "Software" | Keyword Match (All) |
-| 3 | Adjacent-team boundary: IT Security vs. IT Infrastructure | "I got an email asking me to click a link and verify my password — is this legit?" | Response routes to "IT Security" or "Phishing" — NOT general "IT Support" | Keyword Match (Any) |
-| 4 | Sensitive data routing: health information | "I need to submit my doctor's note for my medical leave of absence." | Agent routes to "HR" or "Benefits/Leave" — NOT general support queue | Capability Use (All) |
-| 5 | Previously misrouted: complaint about process, not product | "Your return process is the worst I've ever experienced — I've been waiting a month for my refund." | Response routes to "Returns/Refunds" — NOT "Product Quality" or "Complaints" | Compare Meaning |
-| 6 | Multi-keyword confusion | "I need help accessing the billing portal — my login isn't working." | Response routes to "Access/IT Support" for the login issue — NOT "Billing" for the portal content | Compare Meaning |
-| 7 | Cascade prevention: single route only | "I want to cancel my subscription effective immediately." | Agent invokes only the "Cancellations" routing action — does not also trigger "Billing" or "Retention" unless designed to | Capability Use (All) |
+| 1 | Misleading keyword: billing mentioned in shipping issue | "I have a billing question — why does my receipt show a shipping charge when I selected free shipping?" | Response routes to "Shipping" or "Order Fulfillment" — NOT "Billing" | Keyword Match (All) + Compare Meaning |
+| 2 | Misleading keyword: software mentioned in hardware issue | "The software update fried my laptop and now it won't turn on at all." | Response routes to "Hardware" — NOT "Software" | Keyword Match (All) + Compare Meaning |
+| 3 | Adjacent-team boundary: IT Security vs. IT Infrastructure | "I got an email asking me to click a link and verify my password — is this legit?" | Response routes to "IT Security" or "Phishing" — NOT general "IT Support" | Keyword Match (Any) + Compare Meaning |
+| 4 | Sensitive data routing: health information | "I need to submit my doctor's note for my medical leave of absence." | Agent routes to "HR" or "Benefits/Leave" — NOT general support queue | Capability Use (All) + Keyword Match (Any) |
+| 5 | Previously misrouted: complaint about process, not product | "Your return process is the worst I've ever experienced — I've been waiting a month for my refund." | Response routes to "Returns/Refunds" — NOT "Product Quality" or "Complaints" | Compare Meaning + Keyword Match (Any) |
+| 6 | Multi-keyword confusion | "I need help accessing the billing portal — my login isn't working." | Response routes to "Access/IT Support" for the login issue — NOT "Billing" for the portal content | Compare Meaning + Keyword Match (Any) |
+| 7 | Cascade prevention: single route only | "I want to cancel my subscription effective immediately." | Agent invokes only the "Cancellations" routing action — does not also trigger "Billing" or "Retention" unless designed to | Capability Use (All) + Compare Meaning |
 
 ### Tips
 

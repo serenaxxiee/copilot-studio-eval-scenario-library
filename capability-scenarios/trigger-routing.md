@@ -53,12 +53,12 @@ If your agent serves users who phrase things differently based on region or lang
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Direct match to Password Reset topic | "I forgot my password and need to reset it" | Capability: `Password Reset` topic | Capability Use (All) |
-| 2 | Direct match to Order Status topic | "Where's my package? I ordered it three days ago" | Capability: `Order Status` topic | Capability Use (All) |
-| 3 | Direct match to Benefits Enrollment topic | "How do I sign up for dental insurance?" | Capability: `Benefits Enrollment` topic | Capability Use (All) |
-| 4 | Paraphrased input routes correctly | "My login credentials aren't working" | Capability: `Password Reset` topic | Capability Use (All) |
-| 5 | Topic-specific language in response | "I need to change my direct deposit information" | Keywords (any): "payroll", "direct deposit", "bank account" | Keyword Match (Any) |
-| 6 | Cross-domain clarity: HR vs. IT | "How do I set up my new laptop?" | Capability: `IT Equipment Setup` topic — NOT `Onboarding` topic | Capability Use (All) |
+| 1 | Direct match to Password Reset topic | "I forgot my password and need to reset it" | Capability: `Password Reset` topic | Capability Use (All) + Keyword Match (Any) |
+| 2 | Direct match to Order Status topic | "Where's my package? I ordered it three days ago" | Capability: `Order Status` topic | Capability Use (All) + Keyword Match (Any) |
+| 3 | Direct match to Benefits Enrollment topic | "How do I sign up for dental insurance?" | Capability: `Benefits Enrollment` topic | Capability Use (All) + Keyword Match (Any) |
+| 4 | Paraphrased input routes correctly | "My login credentials aren't working" | Capability: `Password Reset` topic | Capability Use (All) + Keyword Match (Any) |
+| 5 | Topic-specific language in response | "I need to change my direct deposit information" | Keywords (any): "payroll", "direct deposit", "bank account" | Keyword Match (Any) + Capability Use (All) |
+| 6 | Cross-domain clarity: HR vs. IT | "How do I set up my new laptop?" | Capability: `IT Equipment Setup` topic — NOT `Onboarding` topic | Capability Use (All) + Compare Meaning |
 
 ### Tips
 
@@ -125,12 +125,12 @@ Write inputs that contain keywords from multiple topics simultaneously. Example:
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Subtle cue distinguishes Account Lockout from Password Reset | "I've been locked out after entering my password wrong too many times" | Capability: `Account Lockout` topic | Capability Use (All) |
-| 2 | Subtle cue distinguishes Return from Exchange | "I want to send back the shoes I bought — they don't fit" | Capability: `Return an Item` topic | Capability Use (All) |
-| 3 | Genuinely ambiguous input triggers disambiguation | "I have a problem with my account" | Response asks the user to clarify, presenting options like password issues, billing, or account settings | Compare Meaning |
-| 4 | Multi-keyword input resolves to primary intent | "I want to reset my password for my billing account" | Capability: `Password Reset` topic | Capability Use (All) |
-| 5 | High-confidence match avoids unnecessary disambiguation | "I need to return the headphones I ordered" | Capability: `Return an Item` topic (no disambiguation prompt) | Capability Use (All) |
-| 6 | Disambiguation prompt is well-structured | "I need help with my order" | Response is clear, concise, and offers 2–3 specific options rather than an open-ended question | General Quality |
+| 1 | Subtle cue distinguishes Account Lockout from Password Reset | "I've been locked out after entering my password wrong too many times" | Capability: `Account Lockout` topic | Capability Use (All) + Compare Meaning |
+| 2 | Subtle cue distinguishes Return from Exchange | "I want to send back the shoes I bought — they don't fit" | Capability: `Return an Item` topic | Capability Use (All) + Compare Meaning |
+| 3 | Genuinely ambiguous input triggers disambiguation | "I have a problem with my account" | Response asks the user to clarify, presenting options like password issues, billing, or account settings | Compare Meaning + General Quality |
+| 4 | Multi-keyword input resolves to primary intent | "I want to reset my password for my billing account" | Capability: `Password Reset` topic | Capability Use (All) + Compare Meaning |
+| 5 | High-confidence match avoids unnecessary disambiguation | "I need to return the headphones I ordered" | Capability: `Return an Item` topic (no disambiguation prompt) | Capability Use (All) + Keyword Match (Any) |
+| 6 | Disambiguation prompt is well-structured | "I need help with my order" | Response is clear, concise, and offers 2–3 specific options rather than an open-ended question | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -198,12 +198,12 @@ The user asks about something adjacent to but outside the agent's scope. Example
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Completely off-topic input hits fallback | "Can you recommend a good restaurant nearby?" | Capability: `Fallback` topic | Capability Use (All) |
-| 2 | Gibberish input hits fallback | "asdfghjkl 12345" | Capability: `Fallback` topic | Capability Use (All) |
-| 3 | Vague input hits fallback with guidance | "Help" | Capability: `Fallback` topic | Capability Use (All) |
-| 4 | Fallback response clarifies scope | "Can you recommend a good restaurant nearby?" | Response mentions what the agent CAN help with (e.g., "I can help with IT support, password resets, and equipment requests") | Compare Meaning |
-| 5 | Fallback offers escalation or next step | "I have a legal question about my contract" | Keywords (any): "support team", "contact", "help with", "I can assist you with" | Keyword Match (Any) |
-| 6 | Fallback response is polished and constructive | "What's the meaning of life?" | Response is polite, acknowledges the limitation, and offers a constructive redirect — not a dead-end "I don't understand" | General Quality |
+| 1 | Completely off-topic input hits fallback | "Can you recommend a good restaurant nearby?" | Capability: `Fallback` topic | Capability Use (All) + Compare Meaning |
+| 2 | Gibberish input hits fallback | "asdfghjkl 12345" | Capability: `Fallback` topic | Capability Use (All) + Compare Meaning |
+| 3 | Vague input hits fallback with guidance | "Help" | Capability: `Fallback` topic | Capability Use (All) + Compare Meaning |
+| 4 | Fallback response clarifies scope | "Can you recommend a good restaurant nearby?" | Response mentions what the agent CAN help with (e.g., "I can help with IT support, password resets, and equipment requests") | Compare Meaning + Keyword Match (Any) |
+| 5 | Fallback offers escalation or next step | "I have a legal question about my contract" | Keywords (any): "support team", "contact", "help with", "I can assist you with" | Keyword Match (Any) + General Quality |
+| 6 | Fallback response is polished and constructive | "What's the meaning of life?" | Response is polite, acknowledges the limitation, and offers a constructive redirect — not a dead-end "I don't understand" | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -269,12 +269,12 @@ The user switches topics multiple times in a short conversation. Verify the agen
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Explicit switch from PTO to Password Reset | Turn 1: "What is the PTO policy?" / Turn 2: "Actually, can you help me reset my password?" | Capability: `Password Reset` topic | Capability Use (All) |
-| 2 | Implicit switch during password reset flow | Turn 1: "I need to reset my password" / Turn 2: "When is open enrollment for benefits?" | Capability: `Benefits Enrollment` topic | Capability Use (All) |
-| 3 | Response addresses the new topic, not the old one | Turn 1: "Check my order status for #88234" / Turn 2: "I also need to return the shoes I bought last week" | Response discusses return process, not order status | Compare Meaning |
-| 4 | No context bleed from previous topic | Turn 1: "I need to reset my password — my username is jsmith" / Turn 2: "How much PTO do I have left?" | Response does not reference passwords, usernames, or the previous topic — cleanly addresses PTO balance | General Quality |
-| 5 | Return to previous topic after switch | Turn 1: "Reset my password" / Turn 2: "When is open enrollment?" / Turn 3: "OK, back to my password — what do I do next?" | Capability: `Password Reset` topic | Capability Use (All) |
-| 6 | Smooth transition experience | Turn 1: "I have a billing question" / Turn 2: "Wait, actually, first I need to update my payment method" | Response transitions smoothly to payment update without confusion or re-asking for context already provided | General Quality |
+| 1 | Explicit switch from PTO to Password Reset | Turn 1: "What is the PTO policy?" / Turn 2: "Actually, can you help me reset my password?" | Capability: `Password Reset` topic | Capability Use (All) + Compare Meaning |
+| 2 | Implicit switch during password reset flow | Turn 1: "I need to reset my password" / Turn 2: "When is open enrollment for benefits?" | Capability: `Benefits Enrollment` topic | Capability Use (All) + Compare Meaning |
+| 3 | Response addresses the new topic, not the old one | Turn 1: "Check my order status for #88234" / Turn 2: "I also need to return the shoes I bought last week" | Response discusses return process, not order status | Compare Meaning + Keyword Match (Any) |
+| 4 | No context bleed from previous topic | Turn 1: "I need to reset my password — my username is jsmith" / Turn 2: "How much PTO do I have left?" | Response does not reference passwords, usernames, or the previous topic — cleanly addresses PTO balance | General Quality + Compare Meaning |
+| 5 | Return to previous topic after switch | Turn 1: "Reset my password" / Turn 2: "When is open enrollment?" / Turn 3: "OK, back to my password — what do I do next?" | Capability: `Password Reset` topic | Capability Use (All) + Compare Meaning |
+| 6 | Smooth transition experience | Turn 1: "I have a billing question" / Turn 2: "Wait, actually, first I need to update my payment method" | Response transitions smoothly to payment update without confusion or re-asking for context already provided | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -340,12 +340,12 @@ After fixing a misrouting issue, add the exact input that was misrouting as a pe
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | "Cancel" keyword does not misroute to Cancel Order | "I want to cancel the return I submitted last week" | Capability: `Return an Item` topic — NOT `Cancel Order` topic | Capability Use (All) |
-| 2 | "Password" keyword does not misroute to Password Reset | "I've been locked out after too many password attempts" | Capability: `Account Lockout` topic — NOT `Password Reset` topic | Capability Use (All) |
-| 3 | "Paycheck" does not misroute to Payroll | "What's the deduction on my paycheck for dental insurance?" | Capability: `Benefits` topic — NOT `Payroll` topic | Capability Use (All) |
-| 4 | "Onboarding" does not misroute to Onboarding topic | "I'm past onboarding but still need my equipment set up" | Capability: `IT Equipment Setup` topic — NOT `New Hire Onboarding` topic | Capability Use (All) |
-| 5 | Response content matches correct topic domain | "I was trying to reset my password but now I'm locked out" | Response discusses account lockout recovery (unlock steps, waiting period, admin contact) — not password reset instructions | Compare Meaning |
-| 6 | Correct topic keywords present, wrong topic keywords absent | "What's the deduction on my paycheck for dental insurance?" | Keywords (all): "dental", "insurance", "coverage" or "plan" | Keyword Match (All) |
+| 1 | "Cancel" keyword does not misroute to Cancel Order | "I want to cancel the return I submitted last week" | Capability: `Return an Item` topic — NOT `Cancel Order` topic | Capability Use (All) + Compare Meaning |
+| 2 | "Password" keyword does not misroute to Password Reset | "I've been locked out after too many password attempts" | Capability: `Account Lockout` topic — NOT `Password Reset` topic | Capability Use (All) + Compare Meaning |
+| 3 | "Paycheck" does not misroute to Payroll | "What's the deduction on my paycheck for dental insurance?" | Capability: `Benefits` topic — NOT `Payroll` topic | Capability Use (All) + Compare Meaning |
+| 4 | "Onboarding" does not misroute to Onboarding topic | "I'm past onboarding but still need my equipment set up" | Capability: `IT Equipment Setup` topic — NOT `New Hire Onboarding` topic | Capability Use (All) + Compare Meaning |
+| 5 | Response content matches correct topic domain | "I was trying to reset my password but now I'm locked out" | Response discusses account lockout recovery (unlock steps, waiting period, admin contact) — not password reset instructions | Compare Meaning + Keyword Match (Any) |
+| 6 | Correct topic keywords present, wrong topic keywords absent | "What's the deduction on my paycheck for dental insurance?" | Keywords (all): "dental", "insurance", "coverage" or "plan" | Keyword Match (All) + Compare Meaning |
 
 ### Tips
 

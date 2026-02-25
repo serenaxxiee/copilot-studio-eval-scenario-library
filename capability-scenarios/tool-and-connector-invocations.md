@@ -53,12 +53,12 @@ Test whether the agent uses conversational context to select the right tool. For
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | PTO request triggers the correct flow | "I'd like to submit a PTO request for next Friday" | Capability: `Submit PTO Request flow` | Capability Use (All) |
-| 2 | Order status triggers the correct API | "Where is my order #88234?" | Capability: `Get Order Status API` | Capability Use (All) |
-| 3 | Ticket creation triggers the correct connector | "I need to open a support ticket for a billing issue" | Capability: `Create Support Ticket connector` | Capability Use (All) |
-| 4 | Expense report triggers the correct flow | "Submit my expense report for the NYC trip" | Capability: `Submit Expense Report flow` | Capability Use (All) |
-| 5 | Ambiguous request resolves correctly | "I need to update my address" | Capability: `Update Employee Profile flow` | Capability Use (All) |
-| 6 | Confirmation language appears in response | "I'd like to submit a PTO request for next Friday" | Keywords (any): "submitted", "confirmed", "PTO request" | Keyword Match (Any) |
+| 1 | PTO request triggers the correct flow | "I'd like to submit a PTO request for next Friday" | Capability: `Submit PTO Request flow` | Capability Use (All) + Keyword Match (Any) |
+| 2 | Order status triggers the correct API | "Where is my order #88234?" | Capability: `Get Order Status API` | Capability Use (All) + Keyword Match (Any) |
+| 3 | Ticket creation triggers the correct connector | "I need to open a support ticket for a billing issue" | Capability: `Create Support Ticket connector` | Capability Use (All) + Keyword Match (Any) |
+| 4 | Expense report triggers the correct flow | "Submit my expense report for the NYC trip" | Capability: `Submit Expense Report flow` | Capability Use (All) + Keyword Match (Any) |
+| 5 | Ambiguous request resolves correctly | "I need to update my address" | Capability: `Update Employee Profile flow` | Capability Use (All) + Compare Meaning |
+| 6 | Confirmation language appears in response | "I'd like to submit a PTO request for next Friday" | Keywords (any): "submitted", "confirmed", "PTO request" | Keyword Match (Any) + Capability Use (All) |
 
 ### Tips
 
@@ -116,12 +116,12 @@ The user expresses interest but does not commit to an action. Example: "I'm thin
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Policy question should not call PTO flow | "What is the company's PTO policy?" | Should NOT use: `Submit PTO Request flow` | Capability Use (Any) — negative |
-| 2 | Informational query about expenses | "What are the expense report submission deadlines?" | Should NOT use: `Submit Expense Report flow` | Capability Use (Any) — negative |
-| 3 | Exploratory statement should not trigger action | "I'm thinking about taking Friday off" | Should NOT use: `Submit PTO Request flow` | Capability Use (Any) — negative |
-| 4 | Conversational reply should not trigger any tool | "Thanks, that makes sense" | Should NOT use: any configured tool | Capability Use (Any) — negative |
-| 5 | Clarification question should not trigger tool | "What information do I need to submit a ticket?" | Should NOT use: `Create Support Ticket connector` | Capability Use (Any) — negative |
-| 6 | Informational answer is still correct | "What is the company's PTO policy?" | "Employees receive 15 days of paid time off per year..." | Compare Meaning |
+| 1 | Policy question should not call PTO flow | "What is the company's PTO policy?" | Should NOT use: `Submit PTO Request flow` | Capability Use (Any) — negative + Compare Meaning |
+| 2 | Informational query about expenses | "What are the expense report submission deadlines?" | Should NOT use: `Submit Expense Report flow` | Capability Use (Any) — negative + Compare Meaning |
+| 3 | Exploratory statement should not trigger action | "I'm thinking about taking Friday off" | Should NOT use: `Submit PTO Request flow` | Capability Use (Any) — negative + Compare Meaning |
+| 4 | Conversational reply should not trigger any tool | "Thanks, that makes sense" | Should NOT use: any configured tool | Capability Use (Any) — negative + Compare Meaning |
+| 5 | Clarification question should not trigger tool | "What information do I need to submit a ticket?" | Should NOT use: `Create Support Ticket connector` | Capability Use (Any) — negative + Compare Meaning |
+| 6 | Informational answer is still correct | "What is the company's PTO policy?" | "Employees receive 15 days of paid time off per year..." | Compare Meaning + Keyword Match (Any) |
 
 ### Tips
 
@@ -183,12 +183,12 @@ The user provides required parameters but omits optional ones. Verify the agent 
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Agent asks for missing dates | "I want to submit a PTO request" | Keywords (all): "start date", "end date" | Keyword Match (All) |
-| 2 | Agent asks for missing order number | "Can you check on my order?" | Keywords (all): "order number" | Keyword Match (All) |
-| 3 | Agent asks for missing ticket details | "I need to create a support ticket" | Keywords (all): "description", "category" or "issue type" | Keyword Match (All) |
-| 4 | Agent does not invoke tool prematurely | "I want to submit a PTO request" (first turn, no dates given) | Should NOT use: `Submit PTO Request flow` | Capability Use (All) — negative |
-| 5 | Agent invokes tool after parameters collected | "Start date March 23, end date March 27, vacation type" (follow-up turn after initial request) | Capability: `Submit PTO Request flow` | Capability Use (All) |
-| 6 | Agent handles ambiguous date format | "I want PTO starting next Friday through the following Wednesday" | Response is clear, natural, and either confirms interpreted dates or asks for clarification | General Quality |
+| 1 | Agent asks for missing dates | "I want to submit a PTO request" | Keywords (all): "start date", "end date" | Keyword Match (All) + Compare Meaning |
+| 2 | Agent asks for missing order number | "Can you check on my order?" | Keywords (all): "order number" | Keyword Match (All) + Compare Meaning |
+| 3 | Agent asks for missing ticket details | "I need to create a support ticket" | Keywords (all): "description", "category" or "issue type" | Keyword Match (All) + Compare Meaning |
+| 4 | Agent does not invoke tool prematurely | "I want to submit a PTO request" (first turn, no dates given) | Should NOT use: `Submit PTO Request flow` | Capability Use (All) — negative + Compare Meaning |
+| 5 | Agent invokes tool after parameters collected | "Start date March 23, end date March 27, vacation type" (follow-up turn after initial request) | Capability: `Submit PTO Request flow` | Capability Use (All) + Keyword Match (Any) |
+| 6 | Agent handles ambiguous date format | "I want PTO starting next Friday through the following Wednesday" | Response is clear, natural, and either confirms interpreted dates or asks for clarification | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -251,12 +251,12 @@ The tool returns successfully but with empty or null results (e.g., no matching 
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Order status fields appear in response | "Where is my order #88234?" | Keywords (all): "shipped", "March 5", "TRACK-88234" | Keyword Match (All) |
-| 2 | PTO balance details presented correctly | "How much PTO do I have left?" | Keywords (all): "12 days", "vacation", "2026" | Keyword Match (All) |
-| 3 | Support ticket confirmation includes ID | "Create a ticket for my login issue" | Keywords (all): "TKT-", "created", "login" | Keyword Match (All) |
-| 4 | Response conveys meaning of returned data | "What is the status of my expense report?" | "Your expense report for the NYC trip has been approved by your manager and is pending finance review." | Compare Meaning |
-| 5 | No raw JSON or technical artifacts in response | "Where is my order #88234?" | Response is clear, well-formatted, and free of raw JSON, status codes, or technical field names | General Quality |
-| 6 | Empty result communicated clearly | "Do I have any open support tickets?" | "You don't currently have any open support tickets." or similar clear statement | Compare Meaning |
+| 1 | Order status fields appear in response | "Where is my order #88234?" | Keywords (all): "shipped", "March 5", "TRACK-88234" | Keyword Match (All) + Compare Meaning |
+| 2 | PTO balance details presented correctly | "How much PTO do I have left?" | Keywords (all): "12 days", "vacation", "2026" | Keyword Match (All) + Compare Meaning |
+| 3 | Support ticket confirmation includes ID | "Create a ticket for my login issue" | Keywords (all): "TKT-", "created", "login" | Keyword Match (All) + Compare Meaning |
+| 4 | Response conveys meaning of returned data | "What is the status of my expense report?" | "Your expense report for the NYC trip has been approved by your manager and is pending finance review." | Compare Meaning + Keyword Match (Any) |
+| 5 | No raw JSON or technical artifacts in response | "Where is my order #88234?" | Response is clear, well-formatted, and free of raw JSON, status codes, or technical field names | General Quality + Keyword Match (Any) |
+| 6 | Empty result communicated clearly | "Do I have any open support tickets?" | "You don't currently have any open support tickets." or similar clear statement | Compare Meaning + General Quality |
 
 ### Tips
 
@@ -319,12 +319,12 @@ If the agent is executing a multi-step process and one step fails, verify it com
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | API timeout produces friendly message | "Where is my order #88234?" (with API configured to time out) | "I'm unable to retrieve your order status at the moment. Please try again in a few minutes or contact support." | Compare Meaning |
-| 2 | Invalid input produces helpful guidance | "Check order status for order INVALID" | Response mentions the input may be incorrect and suggests checking the order number | Compare Meaning |
-| 3 | Recovery language is present | "Submit my expense report" (with flow failing) | Keywords (any): "try again", "contact", "support", "assistance", "unable" | Keyword Match (Any) |
-| 4 | No raw error codes in response | "Where is my order #88234?" (with API returning 500 error) | Response is empathetic, constructive, and does not contain HTTP status codes, stack traces, or system error messages | General Quality |
-| 5 | Partial failure communicated clearly | "Book the conference room and send invites to the team" (room booking succeeds, invite sending fails) | Response confirms what succeeded and explains what failed: "I've booked the conference room, but I was unable to send the meeting invites..." | Compare Meaning |
-| 6 | Authentication failure handled gracefully | "Pull up my benefits information" (with connector credentials expired) | Response does not mention "authentication" or "credentials" — instead says something like "I'm having trouble accessing your benefits information right now" | General Quality |
+| 1 | API timeout produces friendly message | "Where is my order #88234?" (with API configured to time out) | "I'm unable to retrieve your order status at the moment. Please try again in a few minutes or contact support." | Compare Meaning + Keyword Match (Any) |
+| 2 | Invalid input produces helpful guidance | "Check order status for order INVALID" | Response mentions the input may be incorrect and suggests checking the order number | Compare Meaning + General Quality |
+| 3 | Recovery language is present | "Submit my expense report" (with flow failing) | Keywords (any): "try again", "contact", "support", "assistance", "unable" | Keyword Match (Any) + General Quality |
+| 4 | No raw error codes in response | "Where is my order #88234?" (with API returning 500 error) | Response is empathetic, constructive, and does not contain HTTP status codes, stack traces, or system error messages | General Quality + Compare Meaning |
+| 5 | Partial failure communicated clearly | "Book the conference room and send invites to the team" (room booking succeeds, invite sending fails) | Response confirms what succeeded and explains what failed: "I've booked the conference room, but I was unable to send the meeting invites..." | Compare Meaning + Keyword Match (Any) |
+| 6 | Authentication failure handled gracefully | "Pull up my benefits information" (with connector credentials expired) | Response does not mention "authentication" or "credentials" — instead says something like "I'm having trouble accessing your benefits information right now" | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -388,12 +388,12 @@ One tool in the sequence fails. Verify the agent handles the partial failure rat
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Cancel order requires status check then cancellation | "Cancel my order #88234" | Capability (all): `Get Order Status API`, `Cancel Order flow` | Capability Use (All) |
-| 2 | Account summary requires multiple data sources | "Give me a summary of my account" | Capability (all): `Get PTO Balance flow`, `Get Open Tickets API`, `Get Pending Expenses API` | Capability Use (All) |
-| 3 | Combined results appear in final response | "Cancel my order #88234" | Keywords (all): "order #88234", "cancelled", "refund" | Keyword Match (All) |
-| 4 | Final response synthesizes multi-tool data | "Give me a summary of my account" | Response includes PTO balance, open ticket count, and pending expense status in a coherent summary | Compare Meaning |
-| 5 | Conditional branch: shipped order cannot be cancelled | "Cancel my order #88234" (order status = shipped) | Response explains order has already shipped and cannot be cancelled, offers alternatives | Compare Meaning |
-| 6 | Multi-tool response is well-structured | "Give me a summary of my account" | Response is clearly organized with distinct sections for each data type, not a jumbled paragraph | General Quality |
+| 1 | Cancel order requires status check then cancellation | "Cancel my order #88234" | Capability (all): `Get Order Status API`, `Cancel Order flow` | Capability Use (All) + Compare Meaning |
+| 2 | Account summary requires multiple data sources | "Give me a summary of my account" | Capability (all): `Get PTO Balance flow`, `Get Open Tickets API`, `Get Pending Expenses API` | Capability Use (All) + Compare Meaning |
+| 3 | Combined results appear in final response | "Cancel my order #88234" | Keywords (all): "order #88234", "cancelled", "refund" | Keyword Match (All) + Compare Meaning |
+| 4 | Final response synthesizes multi-tool data | "Give me a summary of my account" | Response includes PTO balance, open ticket count, and pending expense status in a coherent summary | Compare Meaning + Keyword Match (Any) |
+| 5 | Conditional branch: shipped order cannot be cancelled | "Cancel my order #88234" (order status = shipped) | Response explains order has already shipped and cannot be cancelled, offers alternatives | Compare Meaning + General Quality |
+| 6 | Multi-tool response is well-structured | "Give me a summary of my account" | Response is clearly organized with distinct sections for each data type, not a jumbled paragraph | General Quality + Compare Meaning |
 
 ### Tips
 

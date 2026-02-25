@@ -61,12 +61,12 @@ If your agent has rules about which source takes precedence (e.g., "always prefe
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Source-unique marker: policy document | "What is the approval threshold for travel expenses?" | Response includes "$2,500" (a value that only appears in the Travel Policy document, not in the general FAQ) | Keyword Match (All) |
-| 2 | Source-unique marker: product docs | "What file formats does the export feature support?" | Response includes "CSV, JSON, XML, and Parquet" (the full list only appears in the technical documentation) | Keyword Match (All) |
-| 3 | Source attribution check | "Where can I find the company holiday schedule?" | Response meaning aligns with content from the HR SharePoint site and attributes the information to that source | Compare Meaning |
-| 4 | Cross-source interference | "How do I reset my password?" | Agent retrieves from the IT Self-Service knowledge base — not the developer documentation that also mentions password resets in a different context | Capability Use (All) |
-| 5 | Source priority: newer vs. older | "What are the current office hours?" | Response includes "8:00 AM to 6:00 PM" (from the updated 2025 policy, not "9:00 AM to 5:00 PM" from the older version) | Keyword Match (All) |
-| 6 | Multiple sources needed, primary verified | "What is our return policy for international orders?" | Response meaning aligns with the international shipping policy document — not the domestic return policy | Compare Meaning |
+| 1 | Source-unique marker: policy document | "What is the approval threshold for travel expenses?" | Response includes "$2,500" (a value that only appears in the Travel Policy document, not in the general FAQ) | Keyword Match (All) + Compare Meaning |
+| 2 | Source-unique marker: product docs | "What file formats does the export feature support?" | Response includes "CSV, JSON, XML, and Parquet" (the full list only appears in the technical documentation) | Keyword Match (All) + Compare Meaning |
+| 3 | Source attribution check | "Where can I find the company holiday schedule?" | Response meaning aligns with content from the HR SharePoint site and attributes the information to that source | Compare Meaning + Keyword Match (Any) |
+| 4 | Cross-source interference | "How do I reset my password?" | Agent retrieves from the IT Self-Service knowledge base — not the developer documentation that also mentions password resets in a different context | Capability Use (All) + Compare Meaning |
+| 5 | Source priority: newer vs. older | "What are the current office hours?" | Response includes "8:00 AM to 6:00 PM" (from the updated 2025 policy, not "9:00 AM to 5:00 PM" from the older version) | Keyword Match (All) + Compare Meaning |
+| 6 | Multiple sources needed, primary verified | "What is our return policy for international orders?" | Response meaning aligns with the international shipping policy document — not the domestic return policy | Compare Meaning + Keyword Match (Any) |
 
 ### Tips
 
@@ -134,12 +134,12 @@ The critical failure mode is when the agent does not just guess but presents a f
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | In-domain but uncovered: policy gap | "What is the company policy on bringing pets to the office?" (no pet policy exists in any source) | Response meaning aligns with: "The agent acknowledges it does not have information about a pet policy and does not fabricate one." | Compare Meaning |
-| 2 | Adjacent-topic gap: wrong region | "What are the public holidays for the UK office?" (sources only contain US holiday calendar) | Response includes language like "don't have," "not available," or "unable to find" | Keyword Match (Any) |
-| 3 | Adjacent-topic gap: wrong product | "Does Product X support integration with Tableau?" (documentation only covers Product Y) | Response meaning aligns with: "The agent indicates it does not have specific information about Product X's Tableau integration and does not guess." | Compare Meaning |
-| 4 | Helpful decline: suggests alternative | "What are the tax implications of my stock options?" (no tax guidance in any source) | Response acknowledges the gap AND suggests consulting a tax professional or HR benefits team | General Quality |
-| 5 | Close to domain: recent change | "What is the updated dress code policy?" (sources contain the old policy but no updated version exists) | Agent either provides the existing policy with a note that it may not reflect recent changes, or acknowledges it does not have updated information | General Quality |
-| 6 | Fabrication trap: specific numbers | "How many vacation days do interns get?" (intern policies not in any source) | Agent does NOT provide a specific number of days; acknowledges it lacks this information | Compare Meaning |
+| 1 | In-domain but uncovered: policy gap | "What is the company policy on bringing pets to the office?" (no pet policy exists in any source) | Response meaning aligns with: "The agent acknowledges it does not have information about a pet policy and does not fabricate one." | Compare Meaning + Keyword Match (Any) |
+| 2 | Adjacent-topic gap: wrong region | "What are the public holidays for the UK office?" (sources only contain US holiday calendar) | Response includes language like "don't have," "not available," or "unable to find" | Keyword Match (Any) + Compare Meaning |
+| 3 | Adjacent-topic gap: wrong product | "Does Product X support integration with Tableau?" (documentation only covers Product Y) | Response meaning aligns with: "The agent indicates it does not have specific information about Product X's Tableau integration and does not guess." | Compare Meaning + Keyword Match (Any) |
+| 4 | Helpful decline: suggests alternative | "What are the tax implications of my stock options?" (no tax guidance in any source) | Response acknowledges the gap AND suggests consulting a tax professional or HR benefits team | General Quality + Compare Meaning |
+| 5 | Close to domain: recent change | "What is the updated dress code policy?" (sources contain the old policy but no updated version exists) | Agent either provides the existing policy with a note that it may not reflect recent changes, or acknowledges it does not have updated information | General Quality + Compare Meaning |
+| 6 | Fabrication trap: specific numbers | "How many vacation days do interns get?" (intern policies not in any source) | Agent does NOT provide a specific number of days; acknowledges it lacks this information | Compare Meaning + Keyword Match (Any) |
 
 ### Tips
 
@@ -208,12 +208,12 @@ Verify the agent does not create a blended answer that does not match any source
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Recency-based: updated policy vs. old | "How many vacation days do employees get per year?" (old policy says 15, new policy says 20) | Response includes "20" from the updated policy — not "15" from the outdated one | Keyword Match (All) |
-| 2 | Authority-based: official vs. informal | "Can I work remotely on Fridays?" (official HR policy says "with manager approval," department FAQ says "yes, Fridays are remote days") | Response meaning aligns with the official HR policy requiring manager approval | Compare Meaning |
-| 3 | Discrepancy acknowledgment | "What is the deadline for submitting expense reports?" (Source A says 30 days, Source B says 45 days) | Response acknowledges the discrepancy or recommends the user verify with their manager/finance team | General Quality |
-| 4 | No silent merge | "What is the maximum reimbursement for professional development?" (one source says $2,000, another says $3,000) | Agent provides one specific value from the authoritative source OR acknowledges the discrepancy — does NOT say "$2,000–$3,000" or "$2,500" | Compare Meaning |
-| 5 | Scope-based conflict: different audiences | "What is the return window for products?" (consumer policy says 30 days, enterprise agreement says 90 days) | Response asks the user which context applies or explains both with clear distinction | General Quality |
-| 6 | Date-sensitive conflict | "What are the enrollment dates for benefits?" (2024 document says October, 2025 document says November) | Response uses the 2025 enrollment dates | Keyword Match (All) |
+| 1 | Recency-based: updated policy vs. old | "How many vacation days do employees get per year?" (old policy says 15, new policy says 20) | Response includes "20" from the updated policy — not "15" from the outdated one | Keyword Match (All) + Compare Meaning |
+| 2 | Authority-based: official vs. informal | "Can I work remotely on Fridays?" (official HR policy says "with manager approval," department FAQ says "yes, Fridays are remote days") | Response meaning aligns with the official HR policy requiring manager approval | Compare Meaning + Keyword Match (Any) |
+| 3 | Discrepancy acknowledgment | "What is the deadline for submitting expense reports?" (Source A says 30 days, Source B says 45 days) | Response acknowledges the discrepancy or recommends the user verify with their manager/finance team | General Quality + Compare Meaning |
+| 4 | No silent merge | "What is the maximum reimbursement for professional development?" (one source says $2,000, another says $3,000) | Agent provides one specific value from the authoritative source OR acknowledges the discrepancy — does NOT say "$2,000–$3,000" or "$2,500" | Compare Meaning + Keyword Match (Any) |
+| 5 | Scope-based conflict: different audiences | "What is the return window for products?" (consumer policy says 30 days, enterprise agreement says 90 days) | Response asks the user which context applies or explains both with clear distinction | General Quality + Compare Meaning |
+| 6 | Date-sensitive conflict | "What are the enrollment dates for benefits?" (2024 document says October, 2025 document says November) | Response uses the 2025 enrollment dates | Keyword Match (All) + Compare Meaning |
 
 ### Tips
 
@@ -281,12 +281,12 @@ The agent should not infer or extrapolate beyond the source. If the source descr
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Numerical precision | "What is the maximum amount for equipment reimbursement?" (source says "$1,500 per calendar year") | Response includes "$1,500" and "per calendar year" — does NOT add per-item limits or category breakdowns not in the source | Keyword Match (All) |
-| 2 | Source-faithful response | "What is the process for requesting a leave of absence?" (source lists 3 steps) | Response meaning aligns with the 3 steps in the source — does NOT add a 4th step or embellish the existing steps | Compare Meaning |
-| 3 | Conditional accuracy | "Am I eligible for tuition reimbursement?" (source says "full-time employees who have completed one year of service") | Response includes both conditions: "full-time" and "one year of service" — does NOT add conditions like GPA requirements or degree type restrictions | Keyword Match (All) |
-| 4 | No extrapolation: processing time | "How long does it take for my expense report to be processed?" (source says "submit to your manager for approval" but does not state a timeline) | Response does NOT fabricate a specific number of days; acknowledges the source describes the process but not the timeline | Compare Meaning |
-| 5 | No embellishment: policy details | "What does the company health insurance cover?" (source lists "medical, dental, and vision") | Response includes "medical, dental, and vision" — does NOT add "prescription," "mental health," or other categories not in the source | Keyword Match (All) |
-| 6 | Qualification accuracy: eligibility | "Can part-time employees use the company gym?" (source says "all employees" without specifying full-time or part-time) | Response aligns with "all employees" — does NOT add a restriction to "full-time only" or fabricate part-time specific rules | Compare Meaning |
+| 1 | Numerical precision | "What is the maximum amount for equipment reimbursement?" (source says "$1,500 per calendar year") | Response includes "$1,500" and "per calendar year" — does NOT add per-item limits or category breakdowns not in the source | Keyword Match (All) + Compare Meaning |
+| 2 | Source-faithful response | "What is the process for requesting a leave of absence?" (source lists 3 steps) | Response meaning aligns with the 3 steps in the source — does NOT add a 4th step or embellish the existing steps | Compare Meaning + Keyword Match (All) |
+| 3 | Conditional accuracy | "Am I eligible for tuition reimbursement?" (source says "full-time employees who have completed one year of service") | Response includes both conditions: "full-time" and "one year of service" — does NOT add conditions like GPA requirements or degree type restrictions | Keyword Match (All) + Compare Meaning |
+| 4 | No extrapolation: processing time | "How long does it take for my expense report to be processed?" (source says "submit to your manager for approval" but does not state a timeline) | Response does NOT fabricate a specific number of days; acknowledges the source describes the process but not the timeline | Compare Meaning + General Quality |
+| 5 | No embellishment: policy details | "What does the company health insurance cover?" (source lists "medical, dental, and vision") | Response includes "medical, dental, and vision" — does NOT add "prescription," "mental health," or other categories not in the source | Keyword Match (All) + Compare Meaning |
+| 6 | Qualification accuracy: eligibility | "Can part-time employees use the company gym?" (source says "all employees" without specifying full-time or part-time) | Response aligns with "all employees" — does NOT add a restriction to "full-time only" or fabricate part-time specific rules | Compare Meaning + Keyword Match (Any) |
 
 ### Tips
 
@@ -355,12 +355,12 @@ When sources cover different aspects of a topic but leave gaps between them, the
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | Eligibility + process | "How do I apply for education reimbursement and am I eligible?" (eligibility in HR policy doc, application process in benefits guide) | Response includes eligibility criteria from the HR policy AND the application steps from the benefits guide | Keyword Match (All) |
-| 2 | Product features + limitations | "Can I use the data export feature on the Basic plan?" (feature description in product docs, plan limits in pricing page) | Response meaning aligns with: "The export feature works as described in the product docs, but the Basic plan has specific limitations as noted in the pricing documentation." | Compare Meaning |
-| 3 | General info + department-specific rules | "What is the dress code for the engineering team?" (company-wide dress code in employee handbook, engineering-specific exceptions in department page) | Response includes both the general dress code AND the engineering-specific exceptions | Keyword Match (All) |
-| 4 | No gap-filling | "What is the process and timeline for internal transfers?" (process in HR guide, but no source mentions a timeline) | Response includes the process steps from the HR guide but does NOT fabricate a specific timeline | Compare Meaning |
-| 5 | Three-source synthesis | "What should I know about our parental leave policy?" (eligibility in HR policy, process in benefits guide, pay details in compensation doc) | Response is coherent, covers eligibility, process, and pay, and does not contradict any of the three sources | General Quality |
-| 6 | Accurate attribution under synthesis | "Compare our health insurance options." (Plan A details in one document, Plan B details in another) | Response accurately represents Plan A details from the correct source and Plan B details from the correct source — no detail swapping | Compare Meaning |
+| 1 | Eligibility + process | "How do I apply for education reimbursement and am I eligible?" (eligibility in HR policy doc, application process in benefits guide) | Response includes eligibility criteria from the HR policy AND the application steps from the benefits guide | Keyword Match (All) + Compare Meaning |
+| 2 | Product features + limitations | "Can I use the data export feature on the Basic plan?" (feature description in product docs, plan limits in pricing page) | Response meaning aligns with: "The export feature works as described in the product docs, but the Basic plan has specific limitations as noted in the pricing documentation." | Compare Meaning + Keyword Match (Any) |
+| 3 | General info + department-specific rules | "What is the dress code for the engineering team?" (company-wide dress code in employee handbook, engineering-specific exceptions in department page) | Response includes both the general dress code AND the engineering-specific exceptions | Keyword Match (All) + Compare Meaning |
+| 4 | No gap-filling | "What is the process and timeline for internal transfers?" (process in HR guide, but no source mentions a timeline) | Response includes the process steps from the HR guide but does NOT fabricate a specific timeline | Compare Meaning + General Quality |
+| 5 | Three-source synthesis | "What should I know about our parental leave policy?" (eligibility in HR policy, process in benefits guide, pay details in compensation doc) | Response is coherent, covers eligibility, process, and pay, and does not contradict any of the three sources | General Quality + Compare Meaning |
+| 6 | Accurate attribution under synthesis | "Compare our health insurance options." (Plan A details in one document, Plan B details in another) | Response accurately represents Plan A details from the correct source and Plan B details from the correct source — no detail swapping | Compare Meaning + Keyword Match (All) |
 
 ### Tips
 
@@ -436,13 +436,13 @@ The agent should decline with appropriate confidence — not apologetically or v
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | False premise: nonexistent program | "What is the deadline to enroll in the company's student loan forgiveness program?" (no such program exists) | Response meaning aligns with: "The agent does not have information about a student loan forgiveness program and does not fabricate enrollment details." | Compare Meaning |
-| 2 | False premise: leading question | "Now that the remote work policy allows four days from home, do I need my manager to approve the fifth day?" (policy was not changed) | Response does not accept the premise; clarifies what the actual remote work policy states or acknowledges it cannot confirm the change | Compare Meaning |
-| 3 | Hyper-specific detail: unnamed role | "Who is the current head of the employee wellness committee?" (no source names this person) | Response includes uncertainty language; does NOT fabricate a name | Keyword Match (Any) |
-| 4 | Hyper-specific detail: exact amount | "What is the exact per-meal reimbursement rate for business travel in Japan?" (sources only have a general travel policy, no per-country rates) | Agent does not invent a specific dollar amount for Japan; acknowledges the limitation | Compare Meaning |
-| 5 | General knowledge suppression | "How many days of notice should I give before resigning?" (agent should only use company-specific sources, not general knowledge) | Response either cites the company's specific notice period from a configured source or declines to answer if no company-specific source exists — does NOT cite general industry standards | General Quality |
-| 6 | Obscure edge case | "If I adopt a child internationally while on a temporary work assignment abroad, does parental leave still apply?" (sources do not address this specific combination) | Agent acknowledges this is a specific situation not covered in its available information and suggests contacting HR directly | General Quality |
-| 7 | Fabrication trap: plausible process | "Walk me through the steps to appeal a denied expense claim." (no appeal process exists in any source) | Response does NOT fabricate a multi-step appeal process; acknowledges it does not have information about an appeal process | Compare Meaning |
+| 1 | False premise: nonexistent program | "What is the deadline to enroll in the company's student loan forgiveness program?" (no such program exists) | Response meaning aligns with: "The agent does not have information about a student loan forgiveness program and does not fabricate enrollment details." | Compare Meaning + Keyword Match (Any) |
+| 2 | False premise: leading question | "Now that the remote work policy allows four days from home, do I need my manager to approve the fifth day?" (policy was not changed) | Response does not accept the premise; clarifies what the actual remote work policy states or acknowledges it cannot confirm the change | Compare Meaning + Keyword Match (Any) |
+| 3 | Hyper-specific detail: unnamed role | "Who is the current head of the employee wellness committee?" (no source names this person) | Response includes uncertainty language; does NOT fabricate a name | Keyword Match (Any) + Compare Meaning |
+| 4 | Hyper-specific detail: exact amount | "What is the exact per-meal reimbursement rate for business travel in Japan?" (sources only have a general travel policy, no per-country rates) | Agent does not invent a specific dollar amount for Japan; acknowledges the limitation | Compare Meaning + Keyword Match (Any) |
+| 5 | General knowledge suppression | "How many days of notice should I give before resigning?" (agent should only use company-specific sources, not general knowledge) | Response either cites the company's specific notice period from a configured source or declines to answer if no company-specific source exists — does NOT cite general industry standards | General Quality + Compare Meaning |
+| 6 | Obscure edge case | "If I adopt a child internationally while on a temporary work assignment abroad, does parental leave still apply?" (sources do not address this specific combination) | Agent acknowledges this is a specific situation not covered in its available information and suggests contacting HR directly | General Quality + Compare Meaning |
+| 7 | Fabrication trap: plausible process | "Walk me through the steps to appeal a denied expense claim." (no appeal process exists in any source) | Response does NOT fabricate a multi-step appeal process; acknowledges it does not have information about an appeal process | Compare Meaning + Keyword Match (Any) |
 
 ### Tips
 

@@ -55,14 +55,14 @@ Test questions where a partial answer is misleading or harmful. For example, lis
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | HR policy bot — PTO accrual | "How many PTO days do I earn per year?" | "15 days", "accrual", "per year" | Keyword Match (All) |
-| 2 | HR policy bot — PTO carryover synthesis | "What happens to my unused PTO at the end of the year?" | The agent should explain that up to 5 days carry over and the rest is forfeited, with a December 31 deadline | Compare Meaning |
-| 3 | Product FAQ bot — warranty coverage | "Does the warranty cover water damage?" | "not covered", "water damage", "accidental damage exclusion" | Keyword Match (All) |
-| 4 | Product FAQ bot — repair vs. replace | "If my device is defective, will I get a new one or a repaired unit?" | The agent should explain that devices under 30 days are replaced, and devices over 30 days are repaired, depending on parts availability | Compare Meaning |
-| 5 | Legal/compliance bot — data retention | "How long do we keep employee records after termination?" | "7 years", "termination", "personnel files" | Keyword Match (All) |
-| 6 | Legal/compliance bot — cross-border data transfer | "Can we transfer customer data to our EU subsidiary?" | The answer correctly describes the requirement for Standard Contractual Clauses and references the data processing agreement requirement | Compare Meaning |
-| 7 | HR policy bot — completeness of eligibility | "Who is eligible for parental leave?" | Is the answer complete? It should mention full-time employees, 12-month tenure requirement, both birth and adoption, and that part-time employees at 30+ hours also qualify | General Quality |
-| 8 | Product FAQ bot — return completeness | "How do I return a product I bought online?" | Does the answer include all necessary steps: initiate return in account portal, print shipping label, pack item in original packaging, and drop off at carrier location? | General Quality |
+| 1 | HR policy bot — PTO accrual | "How many PTO days do I earn per year?" | "15 days", "accrual", "per year" | Keyword Match (All) + Compare Meaning |
+| 2 | HR policy bot — PTO carryover synthesis | "What happens to my unused PTO at the end of the year?" | The agent should explain that up to 5 days carry over and the rest is forfeited, with a December 31 deadline | Compare Meaning + Keyword Match (All) |
+| 3 | Product FAQ bot — warranty coverage | "Does the warranty cover water damage?" | "not covered", "water damage", "accidental damage exclusion" | Keyword Match (All) + Compare Meaning |
+| 4 | Product FAQ bot — repair vs. replace | "If my device is defective, will I get a new one or a repaired unit?" | The agent should explain that devices under 30 days are replaced, and devices over 30 days are repaired, depending on parts availability | Compare Meaning + Keyword Match (Any) |
+| 5 | Legal/compliance bot — data retention | "How long do we keep employee records after termination?" | "7 years", "termination", "personnel files" | Keyword Match (All) + Compare Meaning |
+| 6 | Legal/compliance bot — cross-border data transfer | "Can we transfer customer data to our EU subsidiary?" | The answer correctly describes the requirement for Standard Contractual Clauses and references the data processing agreement requirement | Compare Meaning + Keyword Match (All) |
+| 7 | HR policy bot — completeness of eligibility | "Who is eligible for parental leave?" | Is the answer complete? It should mention full-time employees, 12-month tenure requirement, both birth and adoption, and that part-time employees at 30+ hours also qualify | General Quality + Keyword Match (Any) |
+| 8 | Product FAQ bot — return completeness | "How do I return a product I bought online?" | Does the answer include all necessary steps: initiate return in account portal, print shipping label, pack item in original packaging, and drop off at carrier location? | General Quality + Keyword Match (Any) |
 
 ### Tips
 
@@ -127,14 +127,14 @@ Test what happens when user context is unavailable or incomplete. The agent shou
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | HR policy bot — US full-time employee | "How many PTO days do I get?" (context: US, full-time, 3 years tenure) | "20 days", "full-time", "3-5 year tier" | Keyword Match (All) |
-| 2 | HR policy bot — US part-time employee | "How many PTO days do I get?" (context: US, part-time, 3 years tenure) | "10 days", "part-time", "prorated" | Keyword Match (All) |
-| 3 | HR policy bot — UK employee | "How many PTO days do I get?" (context: UK, full-time, 3 years tenure) | "25 days", "statutory", "plus bank holidays" | Keyword Match (All) |
-| 4 | Product FAQ bot — enterprise customer | "What support channels are available to me?" (context: Enterprise plan) | The response should mention dedicated account manager, 24/7 phone support, and priority ticket queue | Compare Meaning |
-| 5 | Product FAQ bot — free-tier customer | "What support channels are available to me?" (context: Free plan) | The response should mention community forums and email support with 48-hour SLA, without mentioning phone or dedicated account manager | Compare Meaning |
-| 6 | Legal/compliance bot — manager role | "How do I handle a harassment complaint?" (context: role = manager) | The response should include the manager's obligation to report, escalation steps to HR, and documentation requirements | Compare Meaning |
-| 7 | Legal/compliance bot — individual contributor role | "How do I handle a harassment complaint?" (context: role = IC) | The response should explain how to file a complaint, available reporting channels, and anti-retaliation protections — without manager-specific obligations | Compare Meaning |
-| 8 | HR policy bot — no context available | "How many PTO days do I get?" (context: missing employment type) | The agent should either ask whether the user is full-time or part-time, or provide both tiers with a note to check which applies | General Quality |
+| 1 | HR policy bot — US full-time employee | "How many PTO days do I get?" (context: US, full-time, 3 years tenure) | "20 days", "full-time", "3-5 year tier" | Keyword Match (All) + Compare Meaning |
+| 2 | HR policy bot — US part-time employee | "How many PTO days do I get?" (context: US, part-time, 3 years tenure) | "10 days", "part-time", "prorated" | Keyword Match (All) + Compare Meaning |
+| 3 | HR policy bot — UK employee | "How many PTO days do I get?" (context: UK, full-time, 3 years tenure) | "25 days", "statutory", "plus bank holidays" | Keyword Match (All) + Compare Meaning |
+| 4 | Product FAQ bot — enterprise customer | "What support channels are available to me?" (context: Enterprise plan) | The response should mention dedicated account manager, 24/7 phone support, and priority ticket queue | Compare Meaning + Keyword Match (All) |
+| 5 | Product FAQ bot — free-tier customer | "What support channels are available to me?" (context: Free plan) | The response should mention community forums and email support with 48-hour SLA, without mentioning phone or dedicated account manager | Compare Meaning + Keyword Match (All) |
+| 6 | Legal/compliance bot — manager role | "How do I handle a harassment complaint?" (context: role = manager) | The response should include the manager's obligation to report, escalation steps to HR, and documentation requirements | Compare Meaning + Keyword Match (Any) |
+| 7 | Legal/compliance bot — individual contributor role | "How do I handle a harassment complaint?" (context: role = IC) | The response should explain how to file a complaint, available reporting channels, and anti-retaliation protections — without manager-specific obligations | Compare Meaning + Keyword Match (Any) |
+| 8 | HR policy bot — no context available | "How many PTO days do I get?" (context: missing employment type) | The agent should either ask whether the user is full-time or part-time, or provide both tiers with a note to check which applies | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -198,14 +198,14 @@ For questions that require information from multiple sources, verify that all re
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | HR policy bot — source retrieval | "What is the bereavement leave policy?" | Knowledge source: HR-Policies-2025.pdf | Capability Use (All) |
-| 2 | HR policy bot — citation text | "What is the bereavement leave policy?" | "HR-Policies-2025", "Bereavement Leave", "Section 4.3" | Keyword Match (All) |
-| 3 | Product FAQ bot — correct source | "How do I reset my device to factory settings?" | Knowledge source: Product-Support-KB (not Marketing-Brochures) | Capability Use (All) |
-| 4 | Product FAQ bot — citation in response | "How do I reset my device to factory settings?" | "Support Article KB-4521" or "Factory Reset Guide" | Keyword Match (All) |
-| 5 | Legal/compliance bot — regulatory source | "What are our GDPR data subject rights obligations?" | Knowledge source: GDPR-Compliance-Handbook-2025.pdf | Capability Use (All) |
-| 6 | Legal/compliance bot — content alignment | "What are our GDPR data subject rights obligations?" | The response content should align with the cited GDPR handbook, describing the right to access, rectification, erasure, and portability as specified in that document | Compare Meaning |
-| 7 | HR policy bot — multi-source question | "How does parental leave interact with short-term disability?" | Knowledge sources: HR-Policies-2025.pdf AND Benefits-Guide-2025.pdf | Capability Use (All) |
-| 8 | Product FAQ bot — wrong source negative test | "What are the technical specifications of Model X?" | Knowledge source should be Product-Specs-Sheet, NOT customer-reviews or marketing-copy | Capability Use (All) |
+| 1 | HR policy bot — source retrieval | "What is the bereavement leave policy?" | Knowledge source: HR-Policies-2025.pdf | Capability Use (All) + Keyword Match (All) |
+| 2 | HR policy bot — citation text | "What is the bereavement leave policy?" | "HR-Policies-2025", "Bereavement Leave", "Section 4.3" | Keyword Match (All) + Compare Meaning |
+| 3 | Product FAQ bot — correct source | "How do I reset my device to factory settings?" | Knowledge source: Product-Support-KB (not Marketing-Brochures) | Capability Use (All) + Keyword Match (All) |
+| 4 | Product FAQ bot — citation in response | "How do I reset my device to factory settings?" | "Support Article KB-4521" or "Factory Reset Guide" | Keyword Match (All) + Compare Meaning |
+| 5 | Legal/compliance bot — regulatory source | "What are our GDPR data subject rights obligations?" | Knowledge source: GDPR-Compliance-Handbook-2025.pdf | Capability Use (All) + Keyword Match (All) |
+| 6 | Legal/compliance bot — content alignment | "What are our GDPR data subject rights obligations?" | The response content should align with the cited GDPR handbook, describing the right to access, rectification, erasure, and portability as specified in that document | Compare Meaning + Keyword Match (Any) |
+| 7 | HR policy bot — multi-source question | "How does parental leave interact with short-term disability?" | Knowledge sources: HR-Policies-2025.pdf AND Benefits-Guide-2025.pdf | Capability Use (All) + Compare Meaning |
+| 8 | Product FAQ bot — wrong source negative test | "What are the technical specifications of Model X?" | Knowledge source should be Product-Specs-Sheet, NOT customer-reviews or marketing-copy | Capability Use (All) + Compare Meaning |
 
 ### Tips
 
@@ -270,14 +270,14 @@ Test scenarios where old and new policies overlap during a transition period. Th
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | HR policy bot — updated PTO accrual | "How many PTO days do new employees get?" (policy updated from 10 to 15 days in Jan 2026) | "15 days" (not "10 days") | Keyword Match (All) |
-| 2 | HR policy bot — removed approval step | "Do I need manager approval for PTO under 3 days?" (policy changed: approval no longer required) | The response should state that PTO under 3 days no longer requires manager approval and can be submitted directly through the portal | Compare Meaning |
-| 3 | Product FAQ bot — updated pricing | "How much does the Pro plan cost?" (price changed from $29 to $39/month) | "$39", "per month", "Pro plan" | Keyword Match (All) |
-| 4 | Product FAQ bot — new feature in current release | "Does Model X support Bluetooth 5.3?" (added in latest firmware update) | "Bluetooth 5.3", "supported", "firmware update 4.2" | Keyword Match (All) |
-| 5 | Legal/compliance bot — regulatory update | "What is the breach notification deadline?" (updated from 72 hours to 48 hours per new regulation) | "48 hours" (not "72 hours") | Keyword Match (All) |
-| 6 | Legal/compliance bot — effective date awareness | "When does the new data retention policy take effect?" | "March 1, 2026", "effective date" | Keyword Match (All) |
-| 7 | HR policy bot — transition period | "What parental leave am I eligible for?" (new policy effective April 1; current policy still applies until then) | The response should explain the current policy and note the upcoming change effective April 1, so the user knows which applies to their situation | Compare Meaning |
-| 8 | Product FAQ bot — deprecated feature | "How do I use the legacy import tool?" (feature removed in latest version) | The response should explain that the legacy import tool has been discontinued and describe the replacement workflow | Compare Meaning |
+| 1 | HR policy bot — updated PTO accrual | "How many PTO days do new employees get?" (policy updated from 10 to 15 days in Jan 2026) | "15 days" (not "10 days") | Keyword Match (All) + Compare Meaning |
+| 2 | HR policy bot — removed approval step | "Do I need manager approval for PTO under 3 days?" (policy changed: approval no longer required) | The response should state that PTO under 3 days no longer requires manager approval and can be submitted directly through the portal | Compare Meaning + Keyword Match (Any) |
+| 3 | Product FAQ bot — updated pricing | "How much does the Pro plan cost?" (price changed from $29 to $39/month) | "$39", "per month", "Pro plan" | Keyword Match (All) + Compare Meaning |
+| 4 | Product FAQ bot — new feature in current release | "Does Model X support Bluetooth 5.3?" (added in latest firmware update) | "Bluetooth 5.3", "supported", "firmware update 4.2" | Keyword Match (All) + Compare Meaning |
+| 5 | Legal/compliance bot — regulatory update | "What is the breach notification deadline?" (updated from 72 hours to 48 hours per new regulation) | "48 hours" (not "72 hours") | Keyword Match (All) + Compare Meaning |
+| 6 | Legal/compliance bot — effective date awareness | "When does the new data retention policy take effect?" | "March 1, 2026", "effective date" | Keyword Match (All) + Compare Meaning |
+| 7 | HR policy bot — transition period | "What parental leave am I eligible for?" (new policy effective April 1; current policy still applies until then) | The response should explain the current policy and note the upcoming change effective April 1, so the user knows which applies to their situation | Compare Meaning + Keyword Match (Any) |
+| 8 | Product FAQ bot — deprecated feature | "How do I use the legacy import tool?" (feature removed in latest version) | The response should explain that the legacy import tool has been discontinued and describe the replacement workflow | Compare Meaning + Keyword Match (Any) |
 
 ### Tips
 
@@ -341,14 +341,14 @@ Verify that the agent does not confidently answer a narrow interpretation of a b
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | HR policy bot — broad leave query | "What's the leave policy?" | The agent should ask which type of leave the user is asking about (PTO, sick, parental, bereavement) or provide a structured overview of all leave types | General Quality |
-| 2 | HR policy bot — vague benefits question | "Tell me about benefits" | The response should cover or list major benefit categories: health insurance, dental/vision, retirement (401k), PTO, wellness programs | Keyword Match (Any) |
-| 3 | Product FAQ bot — ambiguous product reference | "How do I set it up?" (no product context) | The agent should ask which product the user needs help setting up, or list the available products with setup guides | General Quality |
-| 4 | Product FAQ bot — broad shipping query | "How does shipping work?" | The response should provide a structured overview covering shipping methods, timelines, tracking, and international shipping — or ask whether the user has a specific question about one of these areas | Compare Meaning |
-| 5 | Legal/compliance bot — vague compliance query | "What are our obligations?" | The agent should ask which regulatory area the user is asking about (data privacy, workplace safety, financial reporting) rather than guessing | General Quality |
-| 6 | Legal/compliance bot — broad data privacy question | "Tell me about data privacy" | The response should provide a high-level overview covering data collection, storage, access controls, and user rights — not a narrow answer about just one aspect | Compare Meaning |
-| 7 | HR policy bot — ambiguous acronym | "What's the policy on FML?" (could mean FMLA or could be garbled input) | The agent should clarify whether the user is asking about FMLA (Family and Medical Leave Act) rather than assuming | General Quality |
-| 8 | Product FAQ bot — common-interpretation with alternatives | "Can I get a refund?" | The response should address the most common refund scenario (standard return within 30 days) while noting that warranty claims and subscription cancellations have separate processes | Compare Meaning |
+| 1 | HR policy bot — broad leave query | "What's the leave policy?" | The agent should ask which type of leave the user is asking about (PTO, sick, parental, bereavement) or provide a structured overview of all leave types | General Quality + Compare Meaning |
+| 2 | HR policy bot — vague benefits question | "Tell me about benefits" | The response should cover or list major benefit categories: health insurance, dental/vision, retirement (401k), PTO, wellness programs | Keyword Match (Any) + Compare Meaning |
+| 3 | Product FAQ bot — ambiguous product reference | "How do I set it up?" (no product context) | The agent should ask which product the user needs help setting up, or list the available products with setup guides | General Quality + Compare Meaning |
+| 4 | Product FAQ bot — broad shipping query | "How does shipping work?" | The response should provide a structured overview covering shipping methods, timelines, tracking, and international shipping — or ask whether the user has a specific question about one of these areas | Compare Meaning + Keyword Match (Any) |
+| 5 | Legal/compliance bot — vague compliance query | "What are our obligations?" | The agent should ask which regulatory area the user is asking about (data privacy, workplace safety, financial reporting) rather than guessing | General Quality + Compare Meaning |
+| 6 | Legal/compliance bot — broad data privacy question | "Tell me about data privacy" | The response should provide a high-level overview covering data collection, storage, access controls, and user rights — not a narrow answer about just one aspect | Compare Meaning + Keyword Match (Any) |
+| 7 | HR policy bot — ambiguous acronym | "What's the policy on FML?" (could mean FMLA or could be garbled input) | The agent should clarify whether the user is asking about FMLA (Family and Medical Leave Act) rather than assuming | General Quality + Compare Meaning |
+| 8 | Product FAQ bot — common-interpretation with alternatives | "Can I get a refund?" | The response should address the most common refund scenario (standard return within 30 days) while noting that warranty claims and subscription cancellations have separate processes | Compare Meaning + Keyword Match (Any) |
 
 ### Tips
 
@@ -412,14 +412,14 @@ Test that the agent does not pull from a source on a related but different topic
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|---------------------------|--------|
-| 1 | HR policy bot — employee vs. contractor | "What is my health insurance coverage?" (context: full-time employee) | Should NOT retrieve from Contractor-Benefits-Guide.pdf; should retrieve from Employee-Benefits-2025.pdf | Capability Use (All) |
-| 2 | HR policy bot — US vs. UK policy | "How much parental leave do I get?" (context: US employee) | Response should not contain "statutory", "28 days", or "UK" — terms from the UK policy document | Keyword Match (All) |
-| 3 | Product FAQ bot — current vs. discontinued | "What are the specifications for Model X?" | Should NOT retrieve from Discontinued-Products-Archive; should retrieve from Current-Product-Catalog | Capability Use (All) |
-| 4 | Product FAQ bot — product line confusion | "How do I update the firmware on my router?" | Response should not contain instructions for the mesh extender product, which has a different update process | General Quality |
-| 5 | Legal/compliance bot — jurisdiction scoping | "What are our data breach notification requirements?" (context: California operations) | Response should not include GDPR (EU) notification requirements; should focus on CCPA and California Civil Code | General Quality |
-| 6 | Legal/compliance bot — old regulation reference | "What is the current fine for non-compliance?" | Should NOT retrieve from the pre-2025 penalty schedule; should retrieve from the 2025-updated regulatory summary | Capability Use (All) |
-| 7 | HR policy bot — adjacent topic bleed | "How do I file a health insurance claim?" | Response should not include dental insurance claim procedures, even though both are in the benefits knowledge base | General Quality |
-| 8 | Product FAQ bot — marketing vs. support content | "Why does my device keep disconnecting from WiFi?" | Should NOT retrieve from Marketing-Materials or Sales-Brochures; should retrieve from Technical-Support-KB | Capability Use (All) |
+| 1 | HR policy bot — employee vs. contractor | "What is my health insurance coverage?" (context: full-time employee) | Should NOT retrieve from Contractor-Benefits-Guide.pdf; should retrieve from Employee-Benefits-2025.pdf | Capability Use (All) + Compare Meaning |
+| 2 | HR policy bot — US vs. UK policy | "How much parental leave do I get?" (context: US employee) | Response should not contain "statutory", "28 days", or "UK" — terms from the UK policy document | Keyword Match (All) + Compare Meaning |
+| 3 | Product FAQ bot — current vs. discontinued | "What are the specifications for Model X?" | Should NOT retrieve from Discontinued-Products-Archive; should retrieve from Current-Product-Catalog | Capability Use (All) + Compare Meaning |
+| 4 | Product FAQ bot — product line confusion | "How do I update the firmware on my router?" | Response should not contain instructions for the mesh extender product, which has a different update process | General Quality + Compare Meaning |
+| 5 | Legal/compliance bot — jurisdiction scoping | "What are our data breach notification requirements?" (context: California operations) | Response should not include GDPR (EU) notification requirements; should focus on CCPA and California Civil Code | General Quality + Compare Meaning |
+| 6 | Legal/compliance bot — old regulation reference | "What is the current fine for non-compliance?" | Should NOT retrieve from the pre-2025 penalty schedule; should retrieve from the 2025-updated regulatory summary | Capability Use (All) + Compare Meaning |
+| 7 | HR policy bot — adjacent topic bleed | "How do I file a health insurance claim?" | Response should not include dental insurance claim procedures, even though both are in the benefits knowledge base | General Quality + Compare Meaning |
+| 8 | Product FAQ bot — marketing vs. support content | "Why does my device keep disconnecting from WiFi?" | Should NOT retrieve from Marketing-Materials or Sales-Brochures; should retrieve from Technical-Support-KB | Capability Use (All) + Compare Meaning |
 
 ### Tips
 

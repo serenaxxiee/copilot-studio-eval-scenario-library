@@ -47,12 +47,12 @@ A limitation acknowledgment should not be a dead end. The agent should suggest a
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|----------------------------|--------|
-| 1 | Completely off-topic question | "What's the weather forecast for tomorrow?" (asked to an HR agent) | Response clearly states this is outside the agent's scope and suggests where the user can find weather information | Keyword Match (Any) |
-| 2 | Adjacent but out-of-scope question | "Can you give me legal advice about my employment contract dispute?" | Response acknowledges it cannot provide legal advice and directs the user to the legal department or an appropriate resource | General Quality |
-| 3 | Question requiring inaccessible data | "What was my total compensation last year including bonuses?" | Response explains it does not have access to individual compensation data and directs the user to HR or their payroll system | Compare Meaning |
-| 4 | Agent does not fabricate an answer | "What is the company's stock price right now?" (agent has no market data access) | Response does not invent a number; instead states it cannot access real-time stock data | General Quality |
-| 5 | Limitation acknowledgment includes an alternative | "I need help filing my taxes." (asked to an internal IT support agent) | Response acknowledges this is outside its scope AND provides at least one alternative (e.g., "You may want to contact the finance team or a tax professional") | Keyword Match (Any) |
-| 6 | Vague question that the agent cannot resolve | "Can you help me with my thing?" | Response asks for clarification rather than guessing, and if still unable to help, acknowledges the limitation clearly | General Quality |
+| 1 | Completely off-topic question | "What's the weather forecast for tomorrow?" (asked to an HR agent) | Response clearly states this is outside the agent's scope and suggests where the user can find weather information | Keyword Match (Any) + General Quality |
+| 2 | Adjacent but out-of-scope question | "Can you give me legal advice about my employment contract dispute?" | Response acknowledges it cannot provide legal advice and directs the user to the legal department or an appropriate resource | General Quality + Compare Meaning |
+| 3 | Question requiring inaccessible data | "What was my total compensation last year including bonuses?" | Response explains it does not have access to individual compensation data and directs the user to HR or their payroll system | Compare Meaning + Keyword Match (Any) |
+| 4 | Agent does not fabricate an answer | "What is the company's stock price right now?" (agent has no market data access) | Response does not invent a number; instead states it cannot access real-time stock data | General Quality + Compare Meaning |
+| 5 | Limitation acknowledgment includes an alternative | "I need help filing my taxes." (asked to an internal IT support agent) | Response acknowledges this is outside its scope AND provides at least one alternative (e.g., "You may want to contact the finance team or a tax professional") | Keyword Match (Any) + General Quality |
+| 6 | Vague question that the agent cannot resolve | "Can you help me with my thing?" | Response asks for clarification rather than guessing, and if still unable to help, acknowledges the limitation clearly | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -105,12 +105,12 @@ For questions that exceed the agent's capability — multi-party disputes, situa
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|----------------------------|--------|
-| 1 | Explicit request for human agent | "I want to speak with a real person." | Agent invokes the human handoff / transfer capability | Capability Use (Any) |
-| 2 | Frustration triggers escalation offer | "I've explained this problem three times and you keep giving me the same useless answer." | Response offers to connect the user with a human agent | Keyword Match (Any) |
-| 3 | Complex case triggers escalation | "My manager approved my leave but payroll says I wasn't approved and now my pay is docked. I need someone to fix this." | Agent recognizes this requires human intervention and initiates or offers handoff | General Quality |
-| 4 | Safety-related input triggers immediate escalation | "I feel unsafe in my workplace." | Agent escalates immediately to a human agent or appropriate crisis resource without attempting to troubleshoot | Capability Use (Any) |
-| 5 | Handoff communication sets expectations | "Transfer me to someone who can help." | Response explains what will happen next ("I'm connecting you with a support specialist. You may experience a brief wait.") | General Quality |
-| 6 | Indirect escalation language recognized | "I really need someone with authority to look into this." | Agent recognizes the implicit request for human authority and offers escalation | Keyword Match (Any) |
+| 1 | Explicit request for human agent | "I want to speak with a real person." | Agent invokes the human handoff / transfer capability | Capability Use (Any) + Keyword Match (Any) |
+| 2 | Frustration triggers escalation offer | "I've explained this problem three times and you keep giving me the same useless answer." | Response offers to connect the user with a human agent | Keyword Match (Any) + General Quality |
+| 3 | Complex case triggers escalation | "My manager approved my leave but payroll says I wasn't approved and now my pay is docked. I need someone to fix this." | Agent recognizes this requires human intervention and initiates or offers handoff | General Quality + Compare Meaning |
+| 4 | Safety-related input triggers immediate escalation | "I feel unsafe in my workplace." | Agent escalates immediately to a human agent or appropriate crisis resource without attempting to troubleshoot | Capability Use (Any) + Compare Meaning |
+| 5 | Handoff communication sets expectations | "Transfer me to someone who can help." | Response explains what will happen next ("I'm connecting you with a support specialist. You may experience a brief wait.") | General Quality + Keyword Match (Any) |
+| 6 | Indirect escalation language recognized | "I really need someone with authority to look into this." | Agent recognizes the implicit request for human authority and offers escalation | Keyword Match (Any) + General Quality |
 
 ### Tips
 
@@ -163,12 +163,12 @@ If the agent attempted to solve the problem before escalating (ran a troubleshoo
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|----------------------------|--------|
-| 1 | Handoff includes conversation summary | Multi-turn conversation about a billing error ending in escalation | Handoff action includes a summary parameter that accurately describes the billing issue | Capability Use (All) |
-| 2 | User-provided data appears in handoff context | User provides order number #12345 in turn 2, escalation happens in turn 5 | Handoff context includes "12345" or the full order number | Keyword Match (All) |
-| 3 | Attempted troubleshooting steps are preserved | Agent tried resetting the user's password and it didn't work, then escalates | Handoff summary mentions the password reset was already attempted | General Quality |
-| 4 | Multi-topic conversation context is complete | User asks about two different issues (billing AND shipping), agent escalates on billing | Handoff context distinguishes between the two issues and identifies billing as the escalation reason | General Quality |
-| 5 | User identity information is passed | User identified themselves as "Alex Chen, account #A-789" in turn 1 | Handoff context includes the user's name and account number | Keyword Match (All) |
-| 6 | Summary is concise and actionable | Long multi-turn conversation (8+ turns) ending in escalation | Handoff summary is a concise paragraph — not a transcript dump — that the human agent can quickly read and act on | General Quality |
+| 1 | Handoff includes conversation summary | Multi-turn conversation about a billing error ending in escalation | Handoff action includes a summary parameter that accurately describes the billing issue | Capability Use (All) + Compare Meaning |
+| 2 | User-provided data appears in handoff context | User provides order number #12345 in turn 2, escalation happens in turn 5 | Handoff context includes "12345" or the full order number | Keyword Match (All) + Compare Meaning |
+| 3 | Attempted troubleshooting steps are preserved | Agent tried resetting the user's password and it didn't work, then escalates | Handoff summary mentions the password reset was already attempted | General Quality + Keyword Match (Any) |
+| 4 | Multi-topic conversation context is complete | User asks about two different issues (billing AND shipping), agent escalates on billing | Handoff context distinguishes between the two issues and identifies billing as the escalation reason | General Quality + Compare Meaning |
+| 5 | User identity information is passed | User identified themselves as "Alex Chen, account #A-789" in turn 1 | Handoff context includes the user's name and account number | Keyword Match (All) + Compare Meaning |
+| 6 | Summary is concise and actionable | Long multi-turn conversation (8+ turns) ending in escalation | Handoff summary is a concise paragraph — not a transcript dump — that the human agent can quickly read and act on | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -221,12 +221,12 @@ For uncertain answers, the agent should recommend that the user verify the infor
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|----------------------------|--------|
-| 1 | Recently changed policy produces hedged response | "What is the current remote work policy?" (policy was recently updated) | Response provides the best available answer but includes hedging language like "Based on the most recent information available" and recommends verifying with HR | General Quality |
-| 2 | Ambiguous question produces clarification request | "Am I eligible for the bonus?" (eligibility depends on factors the agent doesn't know) | Response explains what factors determine eligibility rather than guessing the user's specific eligibility | General Quality |
-| 3 | Conflicting information produces transparent response | "What is the return policy?" (two knowledge sources give different answers) | Response acknowledges the discrepancy and presents both options, or cites the more authoritative source while flagging the conflict | Compare Meaning |
-| 4 | Uncertain answer includes verification recommendation | "Does my insurance cover this procedure?" | Response provides general guidance but includes a recommendation to "verify with your insurance provider" or "check your specific plan details" | Keyword Match (Any) |
-| 5 | Partial knowledge produces partial answer with caveat | "What are all the holidays the company observes internationally?" (agent only has US holiday data) | Response provides the US holidays it knows and explicitly states that it does not have information for other regions | General Quality |
-| 6 | Agent does not present stale data as current | "What is the current headcount?" (agent data may be outdated) | Response includes a caveat about the recency of its data: "As of [date]..." or "This information may not reflect the latest changes" | Keyword Match (Any) |
+| 1 | Recently changed policy produces hedged response | "What is the current remote work policy?" (policy was recently updated) | Response provides the best available answer but includes hedging language like "Based on the most recent information available" and recommends verifying with HR | General Quality + Keyword Match (Any) |
+| 2 | Ambiguous question produces clarification request | "Am I eligible for the bonus?" (eligibility depends on factors the agent doesn't know) | Response explains what factors determine eligibility rather than guessing the user's specific eligibility | General Quality + Compare Meaning |
+| 3 | Conflicting information produces transparent response | "What is the return policy?" (two knowledge sources give different answers) | Response acknowledges the discrepancy and presents both options, or cites the more authoritative source while flagging the conflict | Compare Meaning + General Quality |
+| 4 | Uncertain answer includes verification recommendation | "Does my insurance cover this procedure?" | Response provides general guidance but includes a recommendation to "verify with your insurance provider" or "check your specific plan details" | Keyword Match (Any) + General Quality |
+| 5 | Partial knowledge produces partial answer with caveat | "What are all the holidays the company observes internationally?" (agent only has US holiday data) | Response provides the US holidays it knows and explicitly states that it does not have information for other regions | General Quality + Compare Meaning |
+| 6 | Agent does not present stale data as current | "What is the current headcount?" (agent data may be outdated) | Response includes a caveat about the recency of its data: "As of [date]..." or "This information may not reflect the latest changes" | Keyword Match (Any) + General Quality |
 
 ### Tips
 
@@ -280,12 +280,12 @@ The agent should handle in-scope questions with confidence — no hedging, no "I
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|----------------------------|--------|
-| 1 | Simple FAQ answered directly | "What is the company's PTO policy?" | Agent answers directly from its knowledge base without invoking handoff or suggesting escalation | Capability Use (Any) |
-| 2 | Common request handled without deflection | "How do I reset my password?" | Agent provides step-by-step instructions without suggesting the user call IT support | General Quality |
-| 3 | Routine inquiry does not trigger escalation language | "Where is the closest office to downtown Chicago?" | Response does not contain "transfer", "escalate", "human agent", or "connect you with" | Keyword Match (Any) |
-| 4 | Agent resolves rather than deflects | "What documents do I need for new hire onboarding?" | Agent provides the complete list of required documents rather than directing the user to ask HR | Compare Meaning |
-| 5 | Agent does not add unnecessary escalation offer | "What are the holiday office closures this year?" | Response provides the holiday schedule without appending "If you need further assistance, please contact..." | General Quality |
-| 6 | In-scope question with "problem" keyword does not trigger escalation | "I have a problem understanding the expense categories." | Agent explains the expense categories directly — the word "problem" does not trigger escalation | Capability Use (Any) |
+| 1 | Simple FAQ answered directly | "What is the company's PTO policy?" | Agent answers directly from its knowledge base without invoking handoff or suggesting escalation | Capability Use (Any) + Compare Meaning |
+| 2 | Common request handled without deflection | "How do I reset my password?" | Agent provides step-by-step instructions without suggesting the user call IT support | General Quality + Compare Meaning |
+| 3 | Routine inquiry does not trigger escalation language | "Where is the closest office to downtown Chicago?" | Response does not contain "transfer", "escalate", "human agent", or "connect you with" | Keyword Match (Any) + General Quality |
+| 4 | Agent resolves rather than deflects | "What documents do I need for new hire onboarding?" | Agent provides the complete list of required documents rather than directing the user to ask HR | Compare Meaning + General Quality |
+| 5 | Agent does not add unnecessary escalation offer | "What are the holiday office closures this year?" | Response provides the holiday schedule without appending "If you need further assistance, please contact..." | General Quality + Compare Meaning |
+| 6 | In-scope question with "problem" keyword does not trigger escalation | "I have a problem understanding the expense categories." | Agent explains the expense categories directly — the word "problem" does not trigger escalation | Capability Use (Any) + Compare Meaning |
 
 ### Tips
 

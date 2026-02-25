@@ -47,12 +47,12 @@ Critical details — deadlines, dollar amounts, eligibility requirements — sho
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|----------------------------|--------|
-| 1 | Multi-step process returns numbered steps | "How do I submit a travel reimbursement?" | Response uses numbered steps (1, 2, 3...) with one action per step | General Quality |
-| 2 | Comparison question returns parallel structure | "What's the difference between the Standard and Premium plans?" | Response presents both plans with comparable detail using a consistent structure (table, parallel bullets, or labeled sections) | General Quality |
-| 3 | Policy explanation highlights key terms | "What is the company's parental leave policy?" | Key details (duration, eligibility, deadlines) are prominent — bolded, listed, or placed at the beginning of the response | Compare Meaning |
-| 4 | FAQ answer is concise and scannable | "What are the office hours for the downtown location?" | Response is brief and directly answers the question without unnecessary preamble | General Quality |
-| 5 | Complex answer includes section breaks | "Walk me through the annual enrollment process for benefits." | Response uses headings or clear section breaks for distinct phases of the process | Keyword Match (Any) |
-| 6 | Short answer does not over-format | "What is the Wi-Fi password for the guest network?" | Response provides the answer directly without unnecessary bullet points, numbered lists, or excessive formatting | General Quality |
+| 1 | Multi-step process returns numbered steps | "How do I submit a travel reimbursement?" | Response uses numbered steps (1, 2, 3...) with one action per step | General Quality + Compare Meaning |
+| 2 | Comparison question returns parallel structure | "What's the difference between the Standard and Premium plans?" | Response presents both plans with comparable detail using a consistent structure (table, parallel bullets, or labeled sections) | General Quality + Compare Meaning |
+| 3 | Policy explanation highlights key terms | "What is the company's parental leave policy?" | Key details (duration, eligibility, deadlines) are prominent — bolded, listed, or placed at the beginning of the response | Compare Meaning + Keyword Match (Any) |
+| 4 | FAQ answer is concise and scannable | "What are the office hours for the downtown location?" | Response is brief and directly answers the question without unnecessary preamble | General Quality + Compare Meaning |
+| 5 | Complex answer includes section breaks | "Walk me through the annual enrollment process for benefits." | Response uses headings or clear section breaks for distinct phases of the process | Keyword Match (Any) + General Quality |
+| 6 | Short answer does not over-format | "What is the Wi-Fi password for the guest network?" | Response provides the answer directly without unnecessary bullet points, numbered lists, or excessive formatting | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -107,12 +107,12 @@ The agent should not use language that minimizes the user's concern — "just", 
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|----------------------------|--------|
-| 1 | Bereavement leave inquiry with emotional language | "My father passed away yesterday. What do I need to do about work?" | Response acknowledges the loss with empathy ("I'm so sorry for your loss") before explaining bereavement leave policy | General Quality |
-| 2 | Frustrated customer complaint | "I've called three times about this billing error and nobody has fixed it. I'm done." | Response validates the frustration ("I understand how frustrating that must be") and provides clear resolution steps | General Quality |
-| 3 | Health-related accommodation request | "I was just diagnosed with a chronic condition and I'm worried about how to manage my workload." | Response shows care ("I'm sorry to hear about your diagnosis") and provides supportive information about accommodations | Compare Meaning |
-| 4 | Both empathy and information are present | "My spouse is in the hospital and I need to take emergency leave." | Response contains empathetic acknowledgment AND specific leave policy information | Keyword Match (All) |
-| 5 | Agent avoids dismissive language in sensitive context | "I'm really struggling with the new system and I feel like I'm falling behind." | Response does not contain "just", "simply", or "it's easy" | Keyword Match (Any) |
-| 6 | Financial hardship context | "I can't afford the premium increase. What are my options?" | Response acknowledges the difficulty of the financial situation before presenting alternatives | General Quality |
+| 1 | Bereavement leave inquiry with emotional language | "My father passed away yesterday. What do I need to do about work?" | Response acknowledges the loss with empathy ("I'm so sorry for your loss") before explaining bereavement leave policy | General Quality + Keyword Match (Any) |
+| 2 | Frustrated customer complaint | "I've called three times about this billing error and nobody has fixed it. I'm done." | Response validates the frustration ("I understand how frustrating that must be") and provides clear resolution steps | General Quality + Keyword Match (Any) |
+| 3 | Health-related accommodation request | "I was just diagnosed with a chronic condition and I'm worried about how to manage my workload." | Response shows care ("I'm sorry to hear about your diagnosis") and provides supportive information about accommodations | Compare Meaning + Keyword Match (Any) |
+| 4 | Both empathy and information are present | "My spouse is in the hospital and I need to take emergency leave." | Response contains empathetic acknowledgment AND specific leave policy information | Keyword Match (All) + Compare Meaning |
+| 5 | Agent avoids dismissive language in sensitive context | "I'm really struggling with the new system and I feel like I'm falling behind." | Response does not contain "just", "simply", or "it's easy" | Keyword Match (Any) + General Quality |
+| 6 | Financial hardship context | "I can't afford the premium increase. What are my options?" | Response acknowledges the difficulty of the financial situation before presenting alternatives | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -165,12 +165,12 @@ Responses to IT or engineering questions should be direct and precise. Technical
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|----------------------------|--------|
-| 1 | Legal topic uses formal language | "What are the company's data retention obligations under GDPR?" | Response uses formal, precise language without contractions or casual phrasing | General Quality |
-| 2 | HR topic uses warm professional tone | "I'm a new employee — how do I set up my benefits?" | Response is warm, welcoming, and uses approachable language ("Welcome aboard! Here's how to get started...") | Compare Meaning |
-| 3 | IT topic uses direct technical language | "How do I configure SSO for the Azure AD tenant?" | Response uses technical terminology appropriate for the audience without over-explaining basic concepts | General Quality |
-| 4 | Legal response avoids contractions | "What is the company's liability for workplace injuries?" | Response does not contain contractions (can't, won't, doesn't, it's) | Keyword Match (Any) |
-| 5 | Casual topic permits informal language | "Where's the best place to grab lunch near the office?" | Response uses friendly, conversational tone — contractions and casual phrasing are acceptable | General Quality |
-| 6 | Formality remains consistent within a response | "Tell me about the non-compete clause in my employment agreement." | Response maintains a consistent formal tone throughout — does not start formal and drift casual | General Quality |
+| 1 | Legal topic uses formal language | "What are the company's data retention obligations under GDPR?" | Response uses formal, precise language without contractions or casual phrasing | General Quality + Compare Meaning |
+| 2 | HR topic uses warm professional tone | "I'm a new employee — how do I set up my benefits?" | Response is warm, welcoming, and uses approachable language ("Welcome aboard! Here's how to get started...") | Compare Meaning + Keyword Match (Any) |
+| 3 | IT topic uses direct technical language | "How do I configure SSO for the Azure AD tenant?" | Response uses technical terminology appropriate for the audience without over-explaining basic concepts | General Quality + Compare Meaning |
+| 4 | Legal response avoids contractions | "What is the company's liability for workplace injuries?" | Response does not contain contractions (can't, won't, doesn't, it's) | Keyword Match (Any) + General Quality |
+| 5 | Casual topic permits informal language | "Where's the best place to grab lunch near the office?" | Response uses friendly, conversational tone — contractions and casual phrasing are acceptable | General Quality + Compare Meaning |
+| 6 | Formality remains consistent within a response | "Tell me about the non-compete clause in my employment agreement." | Response maintains a consistent formal tone throughout — does not start formal and drift casual | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -223,12 +223,12 @@ A complete response tells the user what to do next — not just what the policy 
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|----------------------------|--------|
-| 1 | PTO policy includes all key elements | "What is the PTO policy?" | Response includes accrual rate, maximum balance, approval process, and carryover rules | Keyword Match (All) |
-| 2 | Benefits enrollment includes deadlines | "How do I enroll in health benefits?" | Response mentions enrollment period dates, required documents, and what happens if the deadline is missed | Keyword Match (All) |
-| 3 | Response includes exceptions | "Who is eligible for the tuition reimbursement program?" | Response covers both eligibility criteria and exclusions (part-time employees, probationary period, etc.) | General Quality |
-| 4 | Response includes next steps | "How do I report a workplace safety incident?" | Response includes the reporting steps, who to contact, relevant forms, and expected timeline for response | Compare Meaning |
-| 5 | Partial answer flagged as incomplete | "What are the requirements for a business travel request?" | Response covers approval chain, advance booking requirements, per diem rates, and expense documentation — not just one or two of these | General Quality |
-| 6 | Simple question gets a complete but concise answer | "What is the dress code?" | Response provides the policy and mentions any exceptions (casual Fridays, client-facing roles) without being excessive | General Quality |
+| 1 | PTO policy includes all key elements | "What is the PTO policy?" | Response includes accrual rate, maximum balance, approval process, and carryover rules | Keyword Match (All) + Compare Meaning |
+| 2 | Benefits enrollment includes deadlines | "How do I enroll in health benefits?" | Response mentions enrollment period dates, required documents, and what happens if the deadline is missed | Keyword Match (All) + Compare Meaning |
+| 3 | Response includes exceptions | "Who is eligible for the tuition reimbursement program?" | Response covers both eligibility criteria and exclusions (part-time employees, probationary period, etc.) | General Quality + Compare Meaning |
+| 4 | Response includes next steps | "How do I report a workplace safety incident?" | Response includes the reporting steps, who to contact, relevant forms, and expected timeline for response | Compare Meaning + Keyword Match (All) |
+| 5 | Partial answer flagged as incomplete | "What are the requirements for a business travel request?" | Response covers approval chain, advance booking requirements, per diem rates, and expense documentation — not just one or two of these | General Quality + Keyword Match (Any) |
+| 6 | Simple question gets a complete but concise answer | "What is the dress code?" | Response provides the policy and mentions any exceptions (casual Fridays, client-facing roles) without being excessive | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -281,12 +281,12 @@ The response should not repeat the same information in different words. If the a
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|----------------------------|--------|
-| 1 | Simple question gets a short answer | "What is the office address?" | Response is 1–2 sentences containing the address, without unnecessary context or preamble | General Quality |
-| 2 | Complex question gets a detailed answer | "Explain the full process for filing a disability accommodation request." | Response is structured and comprehensive — multiple paragraphs or sections covering the full process | General Quality |
-| 3 | Response does not start with filler | "How do I reset my password?" | Response does not begin with "Great question!", "Thank you for asking!", or similar filler phrases | Keyword Match (Any) |
-| 4 | Answer does not repeat itself | "What is the vacation policy?" | Response states the policy once clearly without restating the same information in different words | General Quality |
-| 5 | Moderate question gets a moderate answer | "What are the holiday office closures this year?" | Response lists the holidays concisely — not a single sentence, but not a lengthy explanation of each holiday's significance | Compare Meaning |
-| 6 | Right-sized response for a follow-up clarification | "You mentioned the enrollment deadline — what happens if I miss it?" | Response directly addresses the consequence of missing the deadline in 2–4 sentences, without re-explaining the entire enrollment process | General Quality |
+| 1 | Simple question gets a short answer | "What is the office address?" | Response is 1–2 sentences containing the address, without unnecessary context or preamble | General Quality + Compare Meaning |
+| 2 | Complex question gets a detailed answer | "Explain the full process for filing a disability accommodation request." | Response is structured and comprehensive — multiple paragraphs or sections covering the full process | General Quality + Compare Meaning |
+| 3 | Response does not start with filler | "How do I reset my password?" | Response does not begin with "Great question!", "Thank you for asking!", or similar filler phrases | Keyword Match (Any) + General Quality |
+| 4 | Answer does not repeat itself | "What is the vacation policy?" | Response states the policy once clearly without restating the same information in different words | General Quality + Compare Meaning |
+| 5 | Moderate question gets a moderate answer | "What are the holiday office closures this year?" | Response lists the holidays concisely — not a single sentence, but not a lengthy explanation of each holiday's significance | Compare Meaning + General Quality |
+| 6 | Right-sized response for a follow-up clarification | "You mentioned the enrollment deadline — what happens if I miss it?" | Response directly addresses the consequence of missing the deadline in 2–4 sentences, without re-explaining the entire enrollment process | General Quality + Compare Meaning |
 
 ### Tips
 
@@ -339,12 +339,12 @@ While tone should be consistent, the agent should adapt its response style as th
 
 | # | Scenario | Sample Input | Expected Value / Capability | Method |
 |---|----------|-------------|----------------------------|--------|
-| 1 | Empathetic tone persists in late turns | Multi-turn complaint conversation: evaluate response at turn 5 | Turn 5 response still contains empathetic acknowledgment, not just procedural instructions | General Quality |
-| 2 | Formatting quality holds in later turns | Multi-turn troubleshooting: evaluate response at turn 4 | Turn 4 response uses the same structured formatting (numbered steps, bold key terms) as turn 1 | Compare Meaning |
-| 3 | Agent does not become terse | Multi-turn benefits inquiry: evaluate response at turn 6 | Turn 6 response is comparable in length and detail to earlier turns when the question complexity is similar | General Quality |
-| 4 | Formality level is consistent throughout | Multi-turn legal inquiry: evaluate responses at turns 1, 3, and 5 | All three responses maintain formal language — no drift toward casual tone in later turns | Keyword Match (Any) |
-| 5 | Agent adapts to escalating frustration | Multi-turn conversation where user frustration increases over turns 1–4 | Agent's empathetic language increases or remains steady — does not decrease as frustration rises | General Quality |
-| 6 | Final turn provides strong closure | Multi-turn conversation ending in resolution | Final response includes a clear summary, confirmation of resolution, and an invitation for further questions | General Quality |
+| 1 | Empathetic tone persists in late turns | Multi-turn complaint conversation: evaluate response at turn 5 | Turn 5 response still contains empathetic acknowledgment, not just procedural instructions | General Quality + Compare Meaning |
+| 2 | Formatting quality holds in later turns | Multi-turn troubleshooting: evaluate response at turn 4 | Turn 4 response uses the same structured formatting (numbered steps, bold key terms) as turn 1 | Compare Meaning + General Quality |
+| 3 | Agent does not become terse | Multi-turn benefits inquiry: evaluate response at turn 6 | Turn 6 response is comparable in length and detail to earlier turns when the question complexity is similar | General Quality + Compare Meaning |
+| 4 | Formality level is consistent throughout | Multi-turn legal inquiry: evaluate responses at turns 1, 3, and 5 | All three responses maintain formal language — no drift toward casual tone in later turns | Keyword Match (Any) + General Quality |
+| 5 | Agent adapts to escalating frustration | Multi-turn conversation where user frustration increases over turns 1–4 | Agent's empathetic language increases or remains steady — does not decrease as frustration rises | General Quality + Compare Meaning |
+| 6 | Final turn provides strong closure | Multi-turn conversation ending in resolution | Final response includes a clear summary, confirmation of resolution, and an invitation for further questions | General Quality + Keyword Match (Any) |
 
 ### Tips
 

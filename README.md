@@ -41,13 +41,13 @@ Open the linked scenario files and read the "When to Use" section to confirm rel
 ### Step 3: Build — Create Your Test Cases
 
 Each scenario provides everything you need to create test cases:
-- **Recommended Test Methods** — which evaluation methods to use and why
+- **Recommended Test Methods** — which evaluation methods to use, why, and how to combine them
 - **Setup Steps** — step-by-step instructions for creating test cases
 - **Evaluation Patterns** — sub-patterns covering different angles of the scenario
 - **Practical Examples** — sample test cases you can adapt directly
 - **Tips** — coverage targets, thresholds, and best practices
 
-Adapt the examples to your agent's specific knowledge sources, tools, and user base.
+Adapt the examples to your agent's specific knowledge sources, tools, and user base. Use multiple test methods per test case wherever relevant — each method catches a different failure mode, and Copilot Studio supports combining them.
 
 ### Step 4: Expand — Check for Gaps
 
