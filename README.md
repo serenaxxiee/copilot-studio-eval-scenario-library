@@ -1,25 +1,28 @@
-# AI Agent Evaluation Quality Signals and Acceptance Criteria Library
+# AI Agent Evaluation Scenario Library
 
-A curated collection of evaluation quality signals and acceptance criteria for AI agents. Find the scenarios that apply to your agent, adapt the examples to your use case, and start building your eval sets.
+Evaluation scenarios, quality signals, and acceptance criteria for AI agents. Browse by agent type or evaluation concern, adapt the examples to your use case, and build a comprehensive eval set.
 
 ---
 
 ## What This Library Is
 
-This library is a **quality signals and acceptance criteria repository** for agent evaluation. Whether you're validating an early prototype or hardening a production agent, use this library to:
+This library gives you a head start on agent evaluation. Instead of designing test cases from scratch, you select from proven scenarios that cover business quality, architecture, compliance, and safety — then adapt them to your agent.
 
-1. **Discover** the quality dimensions that matter for your agent
-2. **Select** evaluation scenarios spanning business needs, architecture, compliance, and safety
-3. **Build** test cases from the practical examples and evaluation patterns each scenario provides
-4. **Get a jump start** on your agent evaluation
-5. **Gain confidence** that your evaluation is comprehensive
+Use it to:
+
+1. **Identify** which quality dimensions apply to your agent
+2. **Select** evaluation scenarios that match your business needs and architecture
+3. **Build** test cases using the examples and patterns each scenario provides
+4. **Validate** that your eval set is comprehensive — beyond happy-path testing
+
+### Two Types of Scenarios
 
 The library organizes scenarios into two complementary categories:
 
-- **Business-problem scenarios** — defined by what your agent does for users (e.g., "employee asks about PTO policy," "customer troubleshoots a billing issue"). These reflect the real-world outcomes your stakeholders care about.
-- **Capability scenarios** — defined by how your agent's architecture behaves (e.g., "verify tool invocations," "validate knowledge grounding"). These confirm that your agent uses its capabilities correctly, stays safe, and communicates clearly.
+- **Business-problem scenarios** — what your agent does for users (e.g., "employee asks about PTO policy," "customer troubleshoots a billing issue"). These capture the outcomes your stakeholders care about.
+- **Capability scenarios** — how your agent's architecture behaves (e.g., "verify tool invocations," "validate knowledge grounding"). These confirm that each component works correctly, stays safe, and communicates clearly.
 
-> **You need both.** Business-problem scenarios verify that your agent addresses the business problem it was built to solve. Capability scenarios verify that each component of the agent works correctly. An agent can produce the right answer from the wrong source, or invoke the right tool with the wrong parameters — only capability testing catches that.
+> **You need both.** Business-problem scenarios verify that your agent solves the right problem. Capability scenarios verify that the underlying components work correctly. An agent can return the right answer from the wrong source, or call the right tool with the wrong parameters — only capability testing catches that.
 
 ---
 
@@ -27,29 +30,31 @@ The library organizes scenarios into two complementary categories:
 
 ### Step 1: Orient — Find Your Starting Point
 
-Use one of the two entry paths below to identify which scenarios are relevant to your agent.
+Start with one of the two entry paths below:
+- **[Entry Path A](#entry-path-a-agent-capability-quick-start-map)** — "I have an agent that does X — what should I evaluate?"
+- **[Entry Path B](#entry-path-b-i-want-to-routing-table)** — "I have a specific evaluation concern — where do I go?"
 
 ### Step 2: Select — Pick Your Scenarios
 
-Open the linked scenario files. Read the "When to Use" section to confirm relevance. Most agents need **3–5 business-problem scenarios** and **3–5 capability scenarios**.
+Open the linked scenario files and read the "When to Use" section to confirm relevance. Most agents need **3–5 business-problem scenarios** and **3–5 capability scenarios**.
 
 ### Step 3: Build — Create Your Test Cases
 
-Each scenario includes:
+Each scenario provides everything you need to create test cases:
 - **Recommended Test Methods** — which evaluation methods to use and why
 - **Setup Steps** — step-by-step instructions for creating test cases
-- **Evaluation Patterns** — named sub-patterns covering different angles of the scenario
-- **Practical Examples** — concrete sample test cases you can adapt to your agent
+- **Evaluation Patterns** — sub-patterns covering different angles of the scenario
+- **Practical Examples** — sample test cases you can adapt directly
 - **Tips** — coverage targets, thresholds, and best practices
 
-Adapt the practical examples to your agent's specific knowledge sources, tools, and user base.
+Adapt the examples to your agent's specific knowledge sources, tools, and user base.
 
 ### Step 4: Expand — Check for Gaps
 
-After building your initial eval set, scan the routing tables again. Did you miss any dimensions? Common gaps:
-- Testing only happy paths (add edge cases from [Safety & Boundary Enforcement](capability-scenarios/safety-and-boundary-enforcement.md) and [Graceful Failure & Escalation](capability-scenarios/graceful-failure-and-escalation.md))
-- Skipping compliance testing (check [Compliance & Verbatim Content](capability-scenarios/compliance-and-verbatim-content.md))
-- No regression baseline (see [Regression Testing](capability-scenarios/regression-testing.md))
+After building your initial eval set, revisit the routing tables for missed dimensions. Common gaps:
+- Testing only happy paths — add edge cases from [Safety & Boundary Enforcement](capability-scenarios/safety-and-boundary-enforcement.md) and [Graceful Failure & Escalation](capability-scenarios/graceful-failure-and-escalation.md)
+- Skipping compliance testing — see [Compliance & Verbatim Content](capability-scenarios/compliance-and-verbatim-content.md)
+- No regression baseline — see [Regression Testing](capability-scenarios/regression-testing.md)
 
 ---
 
@@ -68,7 +73,7 @@ After building your initial eval set, scan the routing tables again. Did you mis
 | Handles sensitive data (PII, financial, health) | [Safety & Boundary](capability-scenarios/safety-and-boundary-enforcement.md) + [Compliance](capability-scenarios/compliance-and-verbatim-content.md) |
 | Is about to be updated or republished | [Regression Testing](capability-scenarios/regression-testing.md) + all sections previously passing |
 
-> **Tip:** Most agents match multiple rows. An agent that answers HR questions using SharePoint AND calls Power Automate to submit PTO requests would use rows 1 and 2.
+> **Tip:** Most agents match multiple rows. An agent that answers HR questions from SharePoint AND submits PTO requests via Power Automate would combine rows 1 and 2.
 
 ---
 
@@ -97,7 +102,7 @@ After building your initial eval set, scan the routing tables again. Did you mis
 
 ## What Each Scenario Entry Contains
 
-Every scenario — whether business-problem or capability — follows a consistent structure:
+Every scenario follows a consistent structure:
 
 | Section | What It Provides |
 |---------|-----------------|
@@ -149,17 +154,17 @@ copilot-studio-eval-scenario-library/
 ```
 Example: HR Q&A Agent
 
-FROM BUSINESS-PROBLEM SCENARIOS:
+BUSINESS-PROBLEM SCENARIOS:
 ├── "Employee asks about PTO policy" (Information Retrieval)
 ├── "Employee submits PTO request" (Request Submission)
 └── "New hire asks about onboarding steps" (Process Navigation)
 
-FROM CAPABILITY SCENARIOS:
-├── Knowledge Grounding (are the right policy docs retrieved?)
-├── Tool Invocations (does the PTO submission flow execute correctly?)
-├── Compliance (is legally required language included?)
-├── Safety (does the agent protect employee PII?)
-└── Tone (is the agent empathetic for sensitive HR topics?)
+CAPABILITY SCENARIOS:
+├── Knowledge Grounding — are the right policy docs retrieved?
+├── Tool Invocations — does the PTO submission flow execute correctly?
+├── Compliance — is legally required language included?
+├── Safety — does the agent protect employee PII?
+└── Tone — is the agent empathetic for sensitive HR topics?
 
 RESULT: Comprehensive eval set covering business quality + infrastructure +
         compliance + safety + communication quality.
