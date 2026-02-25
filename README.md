@@ -1,25 +1,25 @@
 # AI Agent Evaluation Quality Signals and Acceptance Criteria Library
 
-A structured, browsable repository of evaluation quality signals and acceptance criteria based on scenarios for AI agents. Select the scenarios that match your agent, adapt the practical examples, and start building your eval sets.
+A curated collection of evaluation quality signals and acceptance criteria for AI agents. Find the scenarios that apply to your agent, adapt the examples to your use case, and start building your eval sets.
 
 ---
 
 ## What This Library Is
 
-This library is a **quality signals and acceptance criteria repository** for agent evaluation. If you have an agent idea or a working prototype, you can use this library to:
+This library is a **quality signals and acceptance criteria repository** for agent evaluation. Whether you're validating an early prototype or hardening a production agent, use this library to:
 
-1. **Discover** which quality dimensions matter for your agent
-2. **Select** evaluation scenarios covering business needs, architecture, compliance, and safety
-3. **Build** test cases using the practical examples and evaluation patterns in each scenario
-4. **Get a jump start** of your agent evaluation
-5. **Gain confidence** that your evaluation is comprehensive 
+1. **Discover** the quality dimensions that matter for your agent
+2. **Select** evaluation scenarios spanning business needs, architecture, compliance, and safety
+3. **Build** test cases from the practical examples and evaluation patterns each scenario provides
+4. **Get a jump start** on your agent evaluation
+5. **Gain confidence** that your evaluation is comprehensive
 
-The library contains two types of evaluation scenarios that work together:
+The library organizes scenarios into two complementary categories:
 
-- **Business-problem scenarios** — grounded in what your agent solves for users (e.g., "employee asks about PTO policy," "customer troubleshoots a billing issue"). These are the starting points most customers relate to.
-- **Capability scenarios** — grounded in how your agent's architecture works (e.g., "verify tool invocations," "validate knowledge grounding"). These ensure your agent uses its capabilities correctly, stays safe, and communicates well.
+- **Business-problem scenarios** — defined by what your agent does for users (e.g., "employee asks about PTO policy," "customer troubleshoots a billing issue"). These reflect the real-world outcomes your stakeholders care about.
+- **Capability scenarios** — defined by how your agent's architecture behaves (e.g., "verify tool invocations," "validate knowledge grounding"). These confirm that your agent uses its capabilities correctly, stays safe, and communicates clearly.
 
-> **You need both.** Business-problem scenarios test whether your agent can address the business problem it intended to address. Capability scenarios test whether each components of the agent works correctly.
+> **You need both.** Business-problem scenarios verify that your agent addresses the business problem it was built to solve. Capability scenarios verify that each component of the agent works correctly. An agent can produce the right answer from the wrong source, or invoke the right tool with the wrong parameters — only capability testing catches that.
 
 ---
 
