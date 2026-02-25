@@ -24,8 +24,8 @@ Use this when your agent produces long or multi-part answers and you need to ver
 
 1. Identify 5–8 questions that typically produce multi-part answers from your agent (e.g., "What are the steps to submit an expense report?" or "Explain the differences between Plan A and Plan B").
 2. For each question, write an ideal reference response that demonstrates the formatting and structure you expect — numbered lists for sequential steps, bullet lists for non-sequential items, bold for key terms, short paragraphs for explanations.
-3. Create test cases using General Quality with rubric instructions such as: "The response should be organized with clear sections, use numbered steps for sequential instructions, and avoid walls of unbroken text."
-4. Add Compare Meaning test cases that compare the agent's response against your ideal reference, focusing on structural similarity rather than word-for-word match.
+3. Create test cases using General Quality.
+4. Add Compare Meaning test cases that compare the agent's response against your ideal reference, focusing on structural similarity rather than word-for-word match, with rubric instructions such as: "The response should be organized with clear sections, use numbered steps for sequential instructions, and avoid walls of unbroken text."
 5. Optionally add Keyword Match (Any) checks for structural indicators like "Step 1", "First", "1.", or "**" (bold markers) when the content type demands them.
 
 ### Anti-Pattern
