@@ -64,7 +64,7 @@ After building your initial eval set, revisit the routing tables for missed dime
 
 | My agent... | Start with these scenarios |
 |------------|--------------------------|
-| Answers questions using knowledge sources (docs, SharePoint, FAQ) | [Information Retrieval & Policy Q&A](business-problem-scenarios/information-retrieval-and-policy-qa.md) + [Knowledge Grounding](capability-scenarios/knowledge-grounding-and-accuracy.md) + [Compliance](capability-scenarios/compliance-and-verbatim-content.md) |
+| Answers questions using knowledge sources (docs, SharePoint, FAQ) | [Information Retrieval & Q&A](business-problem-scenarios/information-retrieval-and-policy-qa.md) + [Knowledge Grounding](capability-scenarios/knowledge-grounding-and-accuracy.md) + [Compliance](capability-scenarios/compliance-and-verbatim-content.md) |
 | Executes tasks via Power Automate, APIs, or connectors | [Request Submission & Task Execution](business-problem-scenarios/request-submission-and-task-execution.md) + [Tool Invocations](capability-scenarios/tool-and-connector-invocations.md) + [Safety](capability-scenarios/safety-and-boundary-enforcement.md) |
 | Walks users through diagnostic or troubleshooting steps | [Troubleshooting & Guided Diagnosis](business-problem-scenarios/troubleshooting-and-guided-diagnosis.md) + [Knowledge Grounding](capability-scenarios/knowledge-grounding-and-accuracy.md) + [Graceful Failure](capability-scenarios/graceful-failure-and-escalation.md) |
 | Guides users through multi-step processes | [Process Navigation & Multi-Step Guidance](business-problem-scenarios/process-navigation-and-multistep-guidance.md) + [Trigger Routing](capability-scenarios/trigger-routing.md) + [Tone & Quality](capability-scenarios/tone-helpfulness-and-response-quality.md) |
@@ -83,7 +83,7 @@ After building your initial eval set, revisit the routing tables for missed dime
 
 | I want to... | Go to |
 |-------------|-------|
-| Test whether my agent answers business questions correctly | [Information Retrieval & Policy Q&A](business-problem-scenarios/information-retrieval-and-policy-qa.md) |
+| Test whether my agent answers business questions correctly | [Information Retrieval & Q&A](business-problem-scenarios/information-retrieval-and-policy-qa.md) |
 | Verify my agent handles troubleshooting workflows | [Troubleshooting & Guided Diagnosis](business-problem-scenarios/troubleshooting-and-guided-diagnosis.md) |
 | Test request submission and task execution | [Request Submission & Task Execution](business-problem-scenarios/request-submission-and-task-execution.md) |
 | Evaluate multi-step process guidance | [Process Navigation & Multi-Step Guidance](business-problem-scenarios/process-navigation-and-multistep-guidance.md) |
